@@ -1,0 +1,8 @@
+.ul {
+    padding: 0;
+}
+
+.items {
+    display: grid;
+    grid-template-columns: 177px 1px;
+}

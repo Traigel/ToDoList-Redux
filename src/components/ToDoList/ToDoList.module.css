@@ -1,0 +1,8 @@
+.newTitle div {
+    display: inline-block;
+}
+
+.buttonFilter div{
+    display: inline-block;
+    margin-right: 18px;
+}
