@@ -4,12 +4,15 @@ import styles from './BoduList.module.css'
 
 type BodyListType = {
     state: Array<ToDoStateType>,
-    callBack: (id:number)=>void
+    deleteCallBack: (id: number) => void
+    isDoneCallBack: (id: number) => void
 }
 
 export const BodyList = (props: BodyListType) => {
 
-    const buttonOnClickHandler = (id:number) => props.callBack(id)
+    const buttonOnClickHandler = (id: number) => props.deleteCallBack(id)
+
+    const inputOnClickHandler = (id: number) => props.isDoneCallBack(id)
 
     return (
         <div>
@@ -18,11 +21,11 @@ export const BodyList = (props: BodyListType) => {
                         return (
                             <li key={u.id} className={styles.items}>
                                 <div>
-                                    <input type="checkbox" checked={u.isDone}/>
+                                    <input type="checkbox" onClick={() => inputOnClickHandler(u.id)} checked={u.isDone}/>
                                     <span>{u.title}</span>
                                 </div>
                                 <div>
-                                    <button onClick={()=>buttonOnClickHandler(u.id)}>x</button>
+                                    <button onClick={() => buttonOnClickHandler(u.id)}>x</button>
                                 </div>
                             </li>)
                     }
