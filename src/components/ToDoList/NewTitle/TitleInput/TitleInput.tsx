@@ -1,19 +1,27 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, KeyboardEvent} from 'react';
 
 type TitleInputType = {
     title: string,
     callBack: (titleValue: string) => void
+    onKeyPressCallBack: () => void
 }
 
 export const TitleInput = (props: TitleInputType) => {
 
-    const onChangeInputHandler = (u: ChangeEvent<HTMLInputElement>) => {
-        props.callBack(u.currentTarget.value)
+    const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        props.callBack(e.currentTarget.value)
+    }
+
+    const onKeyPressInputHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.charCode === 13) props.onKeyPressCallBack()
     }
 
     return (
         <div>
-            <input onChange={onChangeInputHandler} value={props.title}/>
+            <input value={props.title}
+                   onChange={onChangeInputHandler}
+                   onKeyPress={onKeyPressInputHandler}
+            />
         </div>
     )
 }

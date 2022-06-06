@@ -3,7 +3,7 @@ import {TitleInput} from "./TitleInput/TitleInput";
 import {Button} from "../Button/Button";
 
 type NewTitleType = {
-    newTitleCallBack: (title: string)=>void
+    newTitleCallBack: (title: string) => void
 }
 
 export const NewTitle = (props: NewTitleType) => {
@@ -21,7 +21,10 @@ export const NewTitle = (props: NewTitleType) => {
 
     return (
         <div>
-            <TitleInput title={title} callBack={onChangeInputHandler}/>
+            <TitleInput title={title}
+                        callBack={onChangeInputHandler}
+                        onKeyPressCallBack={onClickButtonHandler}
+            />
             <Button buttonName={'+'} callBack={onClickButtonHandler}/>
         </div>
     )

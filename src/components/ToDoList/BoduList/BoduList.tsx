@@ -21,7 +21,9 @@ export const BodyList = (props: BodyListType) => {
                         return (
                             <li key={u.id} className={styles.items}>
                                 <div>
-                                    <input type="checkbox" onClick={() => inputOnClickHandler(u.id)} checked={u.isDone}/>
+                                    <input type="checkbox"
+                                           onClick={() => inputOnClickHandler(u.id)}
+                                           checked={u.isDone}/>
                                     <span>{u.title}</span>
                                 </div>
                                 <div>

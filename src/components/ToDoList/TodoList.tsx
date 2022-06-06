@@ -3,7 +3,7 @@ import styles from './ToDoList.module.css';
 import {BodyList} from "./BoduList/BoduList";
 import {Button} from "./Button/Button";
 import {NewTitle} from "./NewTitle/NewTitle";
-import { v1 } from "uuid";
+import {v1} from "uuid";
 
 export type ToDoStateType = {
     id: string,
@@ -26,9 +26,9 @@ export const TodoList = (props: TodoListType) => {
         {id: v1(), title: "TypeScript", isDone: false},
     ])
 
-    const newTitleHandler = (title: string) => {
-        let newTitle = {id: v1(), title: title, isDone: false}
-        setToDoState([newTitle, ...toDoState])
+    const newTitleHandler = (newTitle: string) => {
+        let newTitleEl = {id: v1(), title: newTitle, isDone: false}
+        setToDoState([newTitleEl, ...toDoState])
     }
 
     const deleteTitleHandler = (id: string) => setToDoState(toDoState.filter((el: ToDoStateType) => el.id !== id))
