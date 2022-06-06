@@ -3,9 +3,10 @@ import styles from './ToDoList.module.css';
 import {BodyList} from "./BoduList/BoduList";
 import {Button} from "./Button/Button";
 import {NewTitle} from "./NewTitle/NewTitle";
+import { v1 } from "uuid";
 
 export type ToDoStateType = {
-    id: number,
+    id: string,
     title: string,
     isDone: boolean
 }
@@ -19,15 +20,20 @@ type TodoListType = {
 export const TodoList = (props: TodoListType) => {
 
     const [toDoState, setToDoState] = useState<Array<ToDoStateType>>([
-        {id: 1, title: "HTML&CSS", isDone: true},
-        {id: 2, title: "JS", isDone: true},
-        {id: 3, title: "ReactJS", isDone: false},
-        {id: 4, title: "TypeScript", isDone: false},
+        {id: v1(), title: "HTML&CSS", isDone: true},
+        {id: v1(), title: "JS", isDone: true},
+        {id: v1(), title: "ReactJS", isDone: false},
+        {id: v1(), title: "TypeScript", isDone: false},
     ])
 
-    const deleteTitleHandler = (id: number) => setToDoState(toDoState.filter((el: ToDoStateType) => el.id !== id))
+    const newTitleHandler = (title: string) => {
+        let newTitle = {id: v1(), title: title, isDone: false}
+        setToDoState([newTitle, ...toDoState])
+    }
 
-    const isDoneTitleHandler = (id: number) => {
+    const deleteTitleHandler = (id: string) => setToDoState(toDoState.filter((el: ToDoStateType) => el.id !== id))
+
+    const isDoneTitleHandler = (id: string) => {
         let index = toDoState.findIndex((el: ToDoStateType) => el.id === id)
         let state = [...toDoState]
         if (state[index].isDone) {
@@ -54,7 +60,7 @@ export const TodoList = (props: TodoListType) => {
     return <div className={styles.item}>
         <h3>{props.title}</h3>
         <div className={styles.newTitle}>
-            <NewTitle/>
+            <NewTitle newTitleCallBack={newTitleHandler}/>
         </div>
         <BodyList
             state={filterState}

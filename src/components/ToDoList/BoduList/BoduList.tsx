@@ -4,15 +4,15 @@ import styles from './BoduList.module.css'
 
 type BodyListType = {
     state: Array<ToDoStateType>,
-    deleteCallBack: (id: number) => void
-    isDoneCallBack: (id: number) => void
+    deleteCallBack: (id: string) => void
+    isDoneCallBack: (id: string) => void
 }
 
 export const BodyList = (props: BodyListType) => {
 
-    const buttonOnClickHandler = (id: number) => props.deleteCallBack(id)
+    const buttonOnClickHandler = (id: string) => props.deleteCallBack(id)
 
-    const inputOnClickHandler = (id: number) => props.isDoneCallBack(id)
+    const inputOnClickHandler = (id: string) => props.isDoneCallBack(id)
 
     return (
         <div>
