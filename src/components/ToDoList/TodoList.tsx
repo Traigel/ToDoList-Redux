@@ -57,6 +57,8 @@ export const TodoList = (props: TodoListType) => {
 
     const filterState = filterAffairs(filter, toDoState)
 
+
+
     return <div className={styles.item}>
         <h3>{props.title}</h3>
         <div className={styles.newTitle}>
