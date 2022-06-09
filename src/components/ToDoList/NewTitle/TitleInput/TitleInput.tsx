@@ -8,13 +8,11 @@ type TitleInputType = {
 
 export const TitleInput = (props: TitleInputType) => {
 
-    const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) =>
         props.callBack(e.currentTarget.value)
-    }
 
-    const onKeyPressInputHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.charCode === 13) props.onKeyPressCallBack()
-    }
+    const onKeyPressInputHandler = (e: KeyboardEvent<HTMLInputElement>) =>
+        e.key === 'Enter' && props.onKeyPressCallBack()
 
     return (
         <div>

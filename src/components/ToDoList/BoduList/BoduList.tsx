@@ -1,6 +1,7 @@
 import React from 'react';
 import {ToDoStateType} from '../TodoList';
 import styles from './BoduList.module.css'
+import {Button} from "../Button/Button";
 
 type BodyListType = {
     state: Array<ToDoStateType>,
@@ -26,9 +27,7 @@ export const BodyList = (props: BodyListType) => {
                                            checked={u.isDone}/>
                                     <span>{u.title}</span>
                                 </div>
-                                <div>
-                                    <button onClick={() => buttonOnClickHandler(u.id)}>x</button>
-                                </div>
+                                <Button buttonName={'X'} callBack={()=>buttonOnClickHandler(u.id)}/>
                             </li>)
                     }
                 )}
