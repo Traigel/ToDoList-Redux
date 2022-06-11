@@ -1,7 +1,9 @@
 import React, {ChangeEvent, KeyboardEvent} from 'react';
+import styles from './TitleInpute.module.css'
 
 type TitleInputType = {
     title: string,
+    error: boolean
     callBack: (titleValue: string) => void
     onKeyPressCallBack: () => void
 }
@@ -16,7 +18,8 @@ export const TitleInput = (props: TitleInputType) => {
 
     return (
         <div>
-            <input value={props.title}
+            <input className={`${ props.error ? styles.error : ''}`}
+                   value={props.title}
                    onChange={onChangeInputHandler}
                    onKeyPress={onKeyPressInputHandler}
             />
