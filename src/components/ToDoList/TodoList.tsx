@@ -33,16 +33,10 @@ export const TodoList = (props: TodoListType) => {
 
     const deleteTitleHandler = (id: string) => setToDoState(toDoState.filter((el: ToDoStateType) => el.id !== id))
 
-    const isDoneTitleHandler = (id: string) => {
-        let index = toDoState.findIndex((el: ToDoStateType) => el.id === id)
-        let state = [...toDoState]
-        if (state[index].isDone) {
-            state[index].isDone = false
-            return setToDoState(state)
-        } else {
-            state[index].isDone = true
-            return setToDoState(state)
-        }
+    const isDoneTitleHandler = (id: string, newIsDone: boolean) => {
+        let stateTitle = toDoState.find( (u: ToDoStateType) => u.id === id)
+        if (stateTitle) stateTitle.isDone = newIsDone
+        setToDoState([...toDoState])
     }
 
     const [filter, setFilter] = useState<FilterType>('all')
@@ -57,8 +51,6 @@ export const TodoList = (props: TodoListType) => {
 
     const filterState = filterAffairs(filter, toDoState)
 
-
-
     return <div className={styles.item}>
         <h3>{props.title}</h3>
         <div className={styles.newTitle}>
@@ -70,9 +62,18 @@ export const TodoList = (props: TodoListType) => {
             isDoneCallBack={isDoneTitleHandler}
         />
         <div className={styles.buttonFilter}>
-            <Button buttonName={'All'} callBack={() => filterTitleHandler('all')}/>
-            <Button buttonName={'Active'} callBack={() => filterTitleHandler('active')}/>
-            <Button buttonName={'Completed'} callBack={() => filterTitleHandler('completed')}/>
+            <div className={`${filter === 'all' ? styles.activeFilter : ''}`}>
+                <Button buttonName={'All'} callBack={() => filterTitleHandler('all')}/>
+            </div>
+            <div className={`${filter === 'active' ? styles.activeFilter : ''}`}>
+                <Button buttonName={'Active'} callBack={() => filterTitleHandler('active')}/>
+            </div>
+            <div className={`${filter === 'completed' ? styles.activeFilter : ''}`}>
+                <Button buttonName={'Completed'} callBack={() => filterTitleHandler('completed')}/>
+            </div>
+
+
+
         </div>
     </div>
 }

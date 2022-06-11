@@ -13,10 +13,9 @@ export const NewTitle = (props: NewTitleType) => {
     const onChangeInputHandler = (titleValue: string) => setTitle(titleValue)
 
     const onClickButtonHandler = () => {
-        if (title !== '') {
-            props.newTitleCallBack(title)
-            setTitle('')
-        }
+        if (title.trim() === '') return
+        props.newTitleCallBack(title.trim())
+        setTitle('')
     }
 
     return (

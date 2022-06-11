@@ -4,5 +4,9 @@
 
 .buttonFilter div{
     display: inline-block;
-    margin-right: 18px;
+    margin-right: 10px;
+}
+
+.activeFilter button {
+    background-color: aquamarine;
 }

@@ -6,3 +6,7 @@
     display: grid;
     grid-template-columns: 177px 1px;
 }
+
+.isDone {
+    opacity: 0.5;
+}

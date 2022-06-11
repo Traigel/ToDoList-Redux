@@ -6,24 +6,25 @@ import {Button} from "../Button/Button";
 type BodyListType = {
     state: Array<ToDoStateType>,
     deleteCallBack: (id: string) => void
-    isDoneCallBack: (id: string) => void
+    isDoneCallBack: (id: string, newIsDone: boolean) => void
 }
 
 export const BodyList = (props: BodyListType) => {
 
     const buttonOnClickHandler = (id: string) => props.deleteCallBack(id)
 
-    const inputOnClickHandler = (id: string) => props.isDoneCallBack(id)
+    const inputOnClickHandler = (id: string, newIsDone: boolean) => props.isDoneCallBack(id,newIsDone)
 
     return (
         <div>
             <ul className={styles.ul}>
                 {props.state.map(u => {
                         return (
-                            <li key={u.id} className={styles.items}>
+                            <li key={u.id} className={`${u.isDone ? styles.isDone : ''} ${styles.items}`}>
                                 <div>
                                     <input type="checkbox"
-                                           onClick={() => inputOnClickHandler(u.id)}
+                                           onClick={(newIsDone) =>
+                                               inputOnClickHandler(u.id, newIsDone.currentTarget.checked)}
                                            checked={u.isDone}/>
                                     <span>{u.title}</span>
                                 </div>
