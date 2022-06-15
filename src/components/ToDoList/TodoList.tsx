@@ -34,9 +34,10 @@ export const TodoList = (props: TodoListType) => {
     const deleteTitleHandler = (id: string) => setToDoState(toDoState.filter((el: ToDoStateType) => el.id !== id))
 
     const isDoneTitleHandler = (id: string, newIsDone: boolean) => {
-        let stateTitle = toDoState.find( (u: ToDoStateType) => u.id === id)
-        if (stateTitle) stateTitle.isDone = newIsDone
-        setToDoState([...toDoState])
+        // let stateTitle = toDoState.find( (u: ToDoStateType) => u.id === id)
+        // if (stateTitle) stateTitle.isDone = newIsDone
+        // setToDoState([...toDoState])
+        setToDoState(toDoState.map( el => el.id === id ? {...el, isDone: newIsDone} : el))
     }
 
     const [filter, setFilter] = useState<FilterType>('all')
