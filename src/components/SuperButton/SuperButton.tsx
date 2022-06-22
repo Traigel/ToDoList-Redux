@@ -1,12 +1,12 @@
 import React from 'react';
-import styles from './Button.module.css'
+import styles from './SuperButton.module.css'
 
 type ButtonType = {
     buttonName: string,
     callBack: () => void
 }
 
-export const Button = (props: ButtonType) => {
+export const SuperButton = (props: ButtonType) => {
 
     const onclickButtonHandler = () => props.callBack()
 

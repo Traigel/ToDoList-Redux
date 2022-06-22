@@ -1,10 +1,10 @@
 import React from 'react';
-import {ToDoStateType} from '../TodoList';
 import styles from './BoduList.module.css'
-import {Button} from "../Button/Button";
+import {SuperButton} from "../../SuperButton/SuperButton";
+import {TasksType} from "../../../App";
 
 type BodyListType = {
-    state: Array<ToDoStateType>,
+    state: Array<TasksType>
     deleteCallBack: (id: string) => void
     isDoneCallBack: (id: string, newIsDone: boolean) => void
 }
@@ -13,7 +13,7 @@ export const BodyList = (props: BodyListType) => {
 
     const buttonOnClickHandler = (id: string) => props.deleteCallBack(id)
 
-    const inputOnClickHandler = (id: string, newIsDone: boolean) => props.isDoneCallBack(id,newIsDone)
+    const inputOnClickHandler = (id: string, newIsDone: boolean) => props.isDoneCallBack(id, newIsDone)
 
     return (
         <div>
@@ -28,7 +28,7 @@ export const BodyList = (props: BodyListType) => {
                                            checked={u.isDone}/>
                                     <span>{u.title}</span>
                                 </div>
-                                <Button buttonName={'X'} callBack={()=>buttonOnClickHandler(u.id)}/>
+                                <SuperButton buttonName={'X'} callBack={() => buttonOnClickHandler(u.id)}/>
                             </li>)
                     }
                 )}

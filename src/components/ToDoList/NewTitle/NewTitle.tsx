@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {TitleInput} from "./TitleInput/TitleInput";
-import {Button} from "../Button/Button"
+import {SuperButton} from "../../SuperButton/SuperButton"
 import styles from './NewTitle.module.css'
 
 type NewTitleType = {
@@ -20,8 +20,9 @@ export const NewTitle = (props: NewTitleType) => {
     }
 
     const onClickButtonHandler = () => {
-        if (title.trim() !== '') {
-            props.newTitleCallBack(title.trim())
+        const titleReplace = title.replace(/^ +| +$|( ) +/g,"$1")
+        if (titleReplace !== '') {
+            props.newTitleCallBack(titleReplace)
             setTitle('')
         }
         else setError(true)
@@ -34,7 +35,7 @@ export const NewTitle = (props: NewTitleType) => {
                         callBack={onChangeInputHandler}
                         onKeyPressCallBack={onClickButtonHandler}
             />
-            <Button buttonName={'+'} callBack={onClickButtonHandler}/>
+            <SuperButton buttonName={'+'} callBack={onClickButtonHandler}/>
             {error ? <p className={styles.errorMessage}>Error! Enter value.</p> : <p></p>}
         </div>
     )
