@@ -3,7 +3,7 @@ import {v1} from 'uuid';
 import './App.css';
 import {ToDoList} from "./components/ToDoList/ToDoList";
 
-type FilterType = 'all' | 'active' | 'completed'
+export type FilterType = 'all' | 'active' | 'completed'
 
 type ToDoListType = {
     id: string
@@ -27,8 +27,8 @@ function App() {
     const toDoListID_2 = v1();
 
     const [todoList, setTodoList] = useState<Array<ToDoListType>>([
-        {id: toDoListID_1, title: 'Name To Do List', filter: 'all'},
-        {id: toDoListID_2, title: 'Name 2 Hello', filter: 'all'},
+        {id: toDoListID_1, title: 'What to learn', filter: 'all'},
+        {id: toDoListID_2, title: 'Name To Do List', filter: 'all'},
     ])
 
     const [tasksTodoList, setTasksTodoList] = useState<TasksTodoListType>({
@@ -44,16 +44,25 @@ function App() {
         ],
     })
 
+    const filterAddHandler = (filterItem: FilterType, toDoListID: string) =>
+        setTodoList(todoList.map(el=> el.id === toDoListID ? {...el, filter: filterItem} : el))
+
 
     return (
         <div className="App">
             {todoList.map(tl=> {
+                let filterTasks;
+                if (tl.filter === 'active') filterTasks = tasksTodoList[tl.id].filter(el=> !el.isDone)
+                else if (tl.filter === 'completed') filterTasks = tasksTodoList[tl.id].filter(el=> el.isDone)
+                else filterTasks = tasksTodoList[tl.id]
                 return (
                     <ToDoList
                         key={tl.id}
-                        id={tl.id}
+                        toDoListID={tl.id}
                         title={tl.title}
-                        tasks={tasksTodoList[tl.id]}
+                        filter={tl.filter}
+                        tasks={filterTasks}
+                        filterAddCallBack={filterAddHandler}
                     />
                 )
             })}

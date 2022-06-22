@@ -4,7 +4,7 @@
 
 .items {
     display: grid;
-    grid-template-columns: 177px 1px;
+    grid-template-columns: 178px 24px;
 }
 
 .isDone {
