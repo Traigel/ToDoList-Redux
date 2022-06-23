@@ -18,7 +18,7 @@ export type TasksType = {
 }
 
 type TasksTodoListType = {
-    [toDoListID: string] : Array<TasksType>
+    [toDoListID: string]: Array<TasksType>
 }
 
 function App() {
@@ -44,16 +44,34 @@ function App() {
         ],
     })
 
-    const filterAddHandler = (filterItem: FilterType, toDoListID: string) =>
-        setTodoList(todoList.map(el=> el.id === toDoListID ? {...el, filter: filterItem} : el))
+    const filterAddHandler = (toDoListID: string, filterItem: FilterType) =>
+        setTodoList(todoList.map(el => el.id === toDoListID ? {...el, filter: filterItem} : el))
 
+    const newTitleElHandler = (toDoListID: string, newTitle: string) => {
+        const newTitleObj = {id: v1(), title: newTitle, isDone: false}
+        setTasksTodoList({...tasksTodoList, [toDoListID]: [newTitleObj, ...tasksTodoList[toDoListID]]})
+    }
+
+    const deleteTitleHandler = (toDoListID: string, id: string) =>
+        setTasksTodoList({...tasksTodoList, [toDoListID]: tasksTodoList[toDoListID].filter(el => el.id !== id)})
+
+    const isDoneTitleHandler = (toDoListID: string, id: string, newIsDone: boolean) =>
+        setTasksTodoList({
+            ...tasksTodoList,
+            [toDoListID]: tasksTodoList[toDoListID].map(el => el.id === id ? {...el, isDone: newIsDone} : el)
+        })
+
+    const deleteTodoListHandler = (toDoListID: string) => {
+        setTodoList(todoList.filter(el => el.id !== toDoListID))
+        delete tasksTodoList[toDoListID]
+    }
 
     return (
         <div className="App">
-            {todoList.map(tl=> {
+            {todoList.map(tl => {
                 let filterTasks;
-                if (tl.filter === 'active') filterTasks = tasksTodoList[tl.id].filter(el=> !el.isDone)
-                else if (tl.filter === 'completed') filterTasks = tasksTodoList[tl.id].filter(el=> el.isDone)
+                if (tl.filter === 'active') filterTasks = tasksTodoList[tl.id].filter(el => !el.isDone)
+                else if (tl.filter === 'completed') filterTasks = tasksTodoList[tl.id].filter(el => el.isDone)
                 else filterTasks = tasksTodoList[tl.id]
                 return (
                     <ToDoList
@@ -63,6 +81,10 @@ function App() {
                         filter={tl.filter}
                         tasks={filterTasks}
                         filterAddCallBack={filterAddHandler}
+                        newTitleElCallBack={newTitleElHandler}
+                        deleteTitleCalBack={deleteTitleHandler}
+                        isDoneTitleCallBack={isDoneTitleHandler}
+                        deleteTodoListCallBack={deleteTodoListHandler}
                     />
                 )
             })}
