@@ -4,6 +4,7 @@ import {BodyList} from "./BoduList/BoduList";
 import {SuperButton} from "../SuperButton/SuperButton";
 import {NewTitle} from "./NewTitle/NewTitle";
 import {FilterType, TasksType} from "../../App";
+import {TaskTitle} from "./TaskTitle/TaskTitle";
 
 type TodoListType = {
     toDoListID: string
@@ -15,6 +16,8 @@ type TodoListType = {
     deleteTitleCalBack: (toDoListID: string, id: string) => void
     isDoneTitleCallBack: (toDoListID: string, id: string, newIsDone: boolean) => void
     deleteTodoListCallBack: (toDoListID: string) => void
+    todoListNewTitleCallBack: (toDoListID: string, newTitle: string) => void
+    taskNewTitleCallBack: (toDoListID: string, taskID: string, newTitle: string) => void
 }
 
 export const ToDoList = (props: TodoListType) => {
@@ -32,9 +35,13 @@ export const ToDoList = (props: TodoListType) => {
 
     const deleteTodoListHandler = () => props.deleteTodoListCallBack(props.toDoListID)
 
+    const todoListNewTitleHandler = (newTitle: string) => props.todoListNewTitleCallBack(props.toDoListID, newTitle)
+
+    const taskNewTitleHandler = (taskID: string, newTitle: string) => props.taskNewTitleCallBack(props.toDoListID, taskID, newTitle)
+
     return <div className={styles.item}>
         <h3>
-            {props.title}
+            <TaskTitle title={props.title} titleValueCallBack={todoListNewTitleHandler}/>
             <SuperButton buttonName={'X'} callBack={deleteTodoListHandler}/>
         </h3>
         <div className={styles.newTitle}>
@@ -44,6 +51,7 @@ export const ToDoList = (props: TodoListType) => {
             state={props.tasks}
             deleteCallBack={deleteTitleHandler}
             isDoneCallBack={isDoneTitleHandler}
+            taskNewTitleCallBack={taskNewTitleHandler}
         />
         <div className={styles.buttonFilter}>
             <div className={`${props.filter === 'all' ? styles.activeFilter : ''}`}>

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {v1} from 'uuid';
 import './App.css';
 import {ToDoList} from "./components/ToDoList/ToDoList";
+import {NewTitle} from "./components/ToDoList/NewTitle/NewTitle";
 
 export type FilterType = 'all' | 'active' | 'completed'
 
@@ -66,8 +67,24 @@ function App() {
         delete tasksTodoList[toDoListID]
     }
 
+    const newTodoListHandler = (titleValue: string) => {
+        const newTodoList: ToDoListType = {id: v1(), title: titleValue, filter: 'all'}
+        setTodoList([newTodoList, ...todoList])
+        setTasksTodoList({...tasksTodoList, [newTodoList.id]: []})
+    }
+
+    const todoListNewTitleHandler = (toDoListID: string, newTitle: string) =>
+        setTodoList(todoList.map(el => el.id === toDoListID ? {...el, title: newTitle} : el))
+
+    const taskNewTitleHandler = (toDoListID: string, taskID: string, newTitle: string) =>
+        setTasksTodoList({
+            ...tasksTodoList,
+            [toDoListID]: tasksTodoList[toDoListID].map(el => el.id === taskID ? {...el, title: newTitle} : el)
+        })
+
     return (
         <div className="App">
+            <NewTitle newTitleCallBack={newTodoListHandler}/>
             {todoList.map(tl => {
                 let filterTasks;
                 if (tl.filter === 'active') filterTasks = tasksTodoList[tl.id].filter(el => !el.isDone)
@@ -85,6 +102,8 @@ function App() {
                         deleteTitleCalBack={deleteTitleHandler}
                         isDoneTitleCallBack={isDoneTitleHandler}
                         deleteTodoListCallBack={deleteTodoListHandler}
+                        todoListNewTitleCallBack={todoListNewTitleHandler}
+                        taskNewTitleCallBack={taskNewTitleHandler}
                     />
                 )
             })}
