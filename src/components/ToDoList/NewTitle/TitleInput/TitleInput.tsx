@@ -1,11 +1,13 @@
 import React, {ChangeEvent, KeyboardEvent} from 'react';
 import styles from './TitleInpute.module.css'
+import {TextField} from "@mui/material";
 
 type TitleInputType = {
     title: string,
     error: boolean
     callBack: (titleValue: string) => void
     onKeyPressCallBack: () => void
+    classNameInput?: string
 }
 
 export const TitleInput = (props: TitleInputType) => {
@@ -17,12 +19,16 @@ export const TitleInput = (props: TitleInputType) => {
         e.key === 'Enter' && props.onKeyPressCallBack()
 
     return (
-        <div>
-            <input className={`${ props.error ? styles.error : ''}`}
-                   value={props.title}
-                   onChange={onChangeInputHandler}
-                   onKeyPress={onKeyPressInputHandler}
-            />
-        </div>
+        <TextField
+            value={props.title}
+            onChange={onChangeInputHandler}
+            onKeyPress={onKeyPressInputHandler}
+            error={props.error}
+            size={"small"}
+            id="outlined-basic"
+            label={props.error ? 'Error! Enter value.' : 'New task'}
+            variant="outlined"
+            className={props.classNameInput}
+        />
     )
 }

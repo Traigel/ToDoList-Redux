@@ -1,10 +1,13 @@
 import React, {useState} from 'react';
 import {TitleInput} from "./TitleInput/TitleInput";
-import {SuperButton} from "../../SuperButton/SuperButton"
+import {ColorButtonType, SuperButton} from "../../SuperButton/SuperButton"
 import styles from './NewTitle.module.css'
 
 type NewTitleType = {
     newTitleCallBack: (title: string) => void
+    classNameButton?: string
+    classNameInput?: string
+    colorButton?: ColorButtonType
 }
 
 export const NewTitle = (props: NewTitleType) => {
@@ -20,23 +23,30 @@ export const NewTitle = (props: NewTitleType) => {
     }
 
     const onClickButtonHandler = () => {
-        const titleReplace = title.replace(/^ +| +$|( ) +/g,"$1")
+        const titleReplace = title.replace(/^ +| +$|( ) +/g, "$1")
         if (titleReplace !== '') {
             props.newTitleCallBack(titleReplace)
             setTitle('')
-        }
-        else setError(true)
+        } else setError(true)
     }
 
     return (
         <div>
-            <TitleInput title={title}
-                        error={error}
-                        callBack={onChangeInputHandler}
-                        onKeyPressCallBack={onClickButtonHandler}
+            <TitleInput
+                title={title}
+                error={error}
+                callBack={onChangeInputHandler}
+                onKeyPressCallBack={onClickButtonHandler}
+                classNameInput={props.classNameInput}
             />
-            <SuperButton buttonName={'+'} callBack={onClickButtonHandler}/>
-            {error ? <p className={styles.errorMessage}>Error! Enter value.</p> : <p></p>}
+            <SuperButton
+                buttonName={'+'}
+                variant={'contained'}
+                size={"small"}
+                callBack={onClickButtonHandler}
+                colorButton={props.colorButton}
+                classNameButton={props.classNameButton}
+            />
         </div>
     )
 }

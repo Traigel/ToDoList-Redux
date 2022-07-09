@@ -1,12 +1,4 @@
-.ul {
-    padding: 0;
-}
-
-.items {
-    display: grid;
-    grid-template-columns: 178px 24px;
-}
-
 .isDone {
+    text-decoration: line-through;
     opacity: 0.5;
 }

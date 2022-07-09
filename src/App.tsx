@@ -3,6 +3,9 @@ import {v1} from 'uuid';
 import './App.css';
 import {ToDoList} from "./components/ToDoList/ToDoList";
 import {NewTitle} from "./components/ToDoList/NewTitle/NewTitle";
+import ButtonAppBar from "./components/AppBar/AppBar";
+import Container from '@mui/material/Container/Container';
+import {Grid, Paper} from "@mui/material";
 
 export type FilterType = 'all' | 'active' | 'completed'
 
@@ -84,29 +87,37 @@ function App() {
 
     return (
         <div className="App">
-            <NewTitle newTitleCallBack={newTodoListHandler}/>
-            {todoList.map(tl => {
-                let filterTasks;
-                if (tl.filter === 'active') filterTasks = tasksTodoList[tl.id].filter(el => !el.isDone)
-                else if (tl.filter === 'completed') filterTasks = tasksTodoList[tl.id].filter(el => el.isDone)
-                else filterTasks = tasksTodoList[tl.id]
-                return (
-                    <ToDoList
-                        key={tl.id}
-                        toDoListID={tl.id}
-                        title={tl.title}
-                        filter={tl.filter}
-                        tasks={filterTasks}
-                        filterAddCallBack={filterAddHandler}
-                        newTitleElCallBack={newTitleElHandler}
-                        deleteTitleCalBack={deleteTitleHandler}
-                        isDoneTitleCallBack={isDoneTitleHandler}
-                        deleteTodoListCallBack={deleteTodoListHandler}
-                        todoListNewTitleCallBack={todoListNewTitleHandler}
-                        taskNewTitleCallBack={taskNewTitleHandler}
-                    />
-                )
-            })}
+            <ButtonAppBar newTitleCallBack={newTodoListHandler}/>
+            <Container fixed>
+                <Grid container spacing={3}style={{paddingTop: "15px"}}>
+                    {todoList.map(tl => {
+                        let filterTasks;
+                        if (tl.filter === 'active') filterTasks = tasksTodoList[tl.id].filter(el => !el.isDone)
+                        else if (tl.filter === 'completed') filterTasks = tasksTodoList[tl.id].filter(el => el.isDone)
+                        else filterTasks = tasksTodoList[tl.id]
+                        return (
+                            <Grid item xs={4}>
+                                <Paper elevation={6} style={{padding: "10px"}}>
+                                    <ToDoList
+                                        key={tl.id}
+                                        toDoListID={tl.id}
+                                        title={tl.title}
+                                        filter={tl.filter}
+                                        tasks={filterTasks}
+                                        filterAddCallBack={filterAddHandler}
+                                        newTitleElCallBack={newTitleElHandler}
+                                        deleteTitleCalBack={deleteTitleHandler}
+                                        isDoneTitleCallBack={isDoneTitleHandler}
+                                        deleteTodoListCallBack={deleteTodoListHandler}
+                                        todoListNewTitleCallBack={todoListNewTitleHandler}
+                                        taskNewTitleCallBack={taskNewTitleHandler}
+                                    />
+                                </Paper>
+                            </Grid>
+                        )
+                    })}
+                </Grid>
+            </Container>
         </div>
     );
 }

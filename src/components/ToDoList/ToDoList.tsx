@@ -1,10 +1,14 @@
 import React from "react"
-import styles from './ToDoList.module.css';
+import style from './ToDoList.module.css';
 import {BodyList} from "./BoduList/BoduList";
 import {SuperButton} from "../SuperButton/SuperButton";
 import {NewTitle} from "./NewTitle/NewTitle";
 import {FilterType, TasksType} from "../../App";
 import {TaskTitle} from "./TaskTitle/TaskTitle";
+import {Delete} from "@mui/icons-material";
+import IconButton from "@mui/material/IconButton/IconButton";
+import Container from "@mui/material/Container/Container";
+import Grid from "@mui/material/Grid/Grid";
 
 type TodoListType = {
     toDoListID: string
@@ -39,13 +43,18 @@ export const ToDoList = (props: TodoListType) => {
 
     const taskNewTitleHandler = (taskID: string, newTitle: string) => props.taskNewTitleCallBack(props.toDoListID, taskID, newTitle)
 
-    return <div className={styles.item}>
+    return <div className={style.item}>
         <h3>
             <TaskTitle title={props.title} titleValueCallBack={todoListNewTitleHandler}/>
-            <SuperButton buttonName={'X'} callBack={deleteTodoListHandler}/>
+            <IconButton aria-label="delete">
+                <Delete onClick={deleteTodoListHandler}/>
+            </IconButton>
         </h3>
-        <div className={styles.newTitle}>
-            <NewTitle newTitleCallBack={newTitleHandler}/>
+        <div className={style.newTitle}>
+            <NewTitle
+                newTitleCallBack={newTitleHandler}
+                classNameButton={style.button}
+            />
         </div>
         <BodyList
             state={props.tasks}
@@ -53,16 +62,33 @@ export const ToDoList = (props: TodoListType) => {
             isDoneCallBack={isDoneTitleHandler}
             taskNewTitleCallBack={taskNewTitleHandler}
         />
-        <div className={styles.buttonFilter}>
-            <div className={`${props.filter === 'all' ? styles.activeFilter : ''}`}>
-                <SuperButton buttonName={'All'} callBack={() => filterHandler('all')}/>
-            </div>
-            <div className={`${props.filter === 'active' ? styles.activeFilter : ''}`}>
-                <SuperButton buttonName={'Active'} callBack={() => filterHandler('active')}/>
-            </div>
-            <div className={`${props.filter === 'completed' ? styles.activeFilter : ''}`}>
-                <SuperButton buttonName={'Completed'} callBack={() => filterHandler('completed')}/>
-            </div>
-        </div>
+        <Container fixed>
+            <Grid container spacing={3}>
+                <Grid item>
+                    <SuperButton
+                        buttonName={'All'}
+                        variant={props.filter === 'all' ? 'outlined' : 'contained'}
+                        size={"small"}
+                        callBack={() => filterHandler('all')}
+                    />
+                </Grid>
+                <Grid item>
+                    <SuperButton
+                        buttonName={'Active'}
+                        variant={props.filter === 'active' ? 'outlined' : 'contained'}
+                        size={"small"}
+                        callBack={() => filterHandler('active')}
+                    />
+                </Grid>
+                <Grid item>
+                    <SuperButton
+                        buttonName={'Completed'}
+                        variant={props.filter === 'completed' ? 'outlined' : 'contained'}
+                        size={"small"}
+                        callBack={() => filterHandler('completed')}
+                    />
+                </Grid>
+            </Grid>
+        </Container>
     </div>
 }

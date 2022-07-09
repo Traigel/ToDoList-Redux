@@ -1,5 +1,10 @@
+import Button from '@mui/material/Button/Button';
 import React from 'react';
-import styles from './SuperButton.module.css'
+import style from './SuperButton.module.css'
+
+export type ColorButtonType = "success" | "secondary" | "error"
+export type VariantType = 'text' | 'contained' | 'outlined'
+export type SizeType = 'small' | 'medium' | 'large'
 
 type ButtonType = {
     buttonName: string
@@ -7,19 +12,24 @@ type ButtonType = {
     /**
      * Set button style from outside
      */
-    className?: string
+    classNameButton?: string
     /**
      * Button text color
      */
-    nameColor?: string
+    textColor?: string
     /**
      * Background color
      */
-    backgroundColor?: string
+    colorButton?: ColorButtonType
     /**
-     * Button text size
+     * Button size
      */
-    size?: 'small' | 'medium' | 'large'
+    size?: SizeType
+    /**
+     * Внешний вид ктопки : 'text' | 'contained' | 'outlined'
+     */
+    variant?: VariantType
+    styles?: string
 }
 
 export const SuperButton = (props: ButtonType) => {
@@ -27,16 +37,17 @@ export const SuperButton = (props: ButtonType) => {
     const onclickButtonHandler = () => props.callBack()
 
     const stylesButton = {
-        color: props.nameColor ? props.nameColor : 'black',
-        backgroundColor: props.backgroundColor ? props.backgroundColor : '',
-        fontSize: props.size ? props.size : ''
+        color: props.textColor ? props.textColor : 'black',
     }
 
-    return (
-        <button style={stylesButton}
-                className={props.className}
-                onClick={onclickButtonHandler}>
-            {props.buttonName}
-        </button>
-    )
+    return <Button
+        variant={props.variant}
+        onClick={onclickButtonHandler}
+        style={stylesButton}
+        color={props.colorButton}
+        size={props.size}
+        className={props.classNameButton}
+    >
+        {props.buttonName}
+    </Button>
 }
