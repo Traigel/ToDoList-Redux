@@ -2,14 +2,13 @@ import React, {useState} from 'react';
 import {v1} from 'uuid';
 import './App.css';
 import {ToDoList} from "./components/ToDoList/ToDoList";
-import {NewTitle} from "./components/ToDoList/NewTitle/NewTitle";
 import ButtonAppBar from "./components/AppBar/AppBar";
 import Container from '@mui/material/Container/Container';
 import {Grid, Paper} from "@mui/material";
 
 export type FilterType = 'all' | 'active' | 'completed'
 
-type ToDoListType = {
+export type ToDoListType = {
     id: string
     title: string
     filter: FilterType
@@ -96,10 +95,9 @@ function App() {
                         else if (tl.filter === 'completed') filterTasks = tasksTodoList[tl.id].filter(el => el.isDone)
                         else filterTasks = tasksTodoList[tl.id]
                         return (
-                            <Grid item xs={4}>
+                            <Grid key={tl.id} item xs={4}>
                                 <Paper elevation={6} style={{padding: "10px"}}>
                                     <ToDoList
-                                        key={tl.id}
                                         toDoListID={tl.id}
                                         title={tl.title}
                                         filter={tl.filter}
