@@ -26,8 +26,9 @@ test('filter changes', () => {
     expect(todoListReducer2[1].filter).toBe("completed")
 })
 
-test('add new toDuList', () => {
-    const todoListReducer1 = todoListReducer(todoList, addTodoListAC('New ToDoList'))
+test('add toDuList', () => {
+    const newTodoList: ToDoListType = {id: v1(), title: 'New ToDoList', filter: 'all'}
+    const todoListReducer1 = todoListReducer(todoList, addTodoListAC(newTodoList))
     expect(todoListReducer1[0].title).toBe('New ToDoList')
 })
 

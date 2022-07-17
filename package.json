@@ -1,5 +1,6 @@
 {
   "name": "test-app",
+  "homepage": "https://Traihel.github.io/ToDoList-TS",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -28,7 +29,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
