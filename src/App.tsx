@@ -20,8 +20,8 @@ export type TasksType = {
     isDone: boolean
 }
 
-type TasksTodoListType = {
-    [toDoListID: string]: Array<TasksType>
+export type TasksTodoListType = {
+    [toDoListID: string]: TasksType[]
 }
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
     const toDoListID_1 = v1();
     const toDoListID_2 = v1();
 
-    const [todoList, setTodoList] = useState<Array<ToDoListType>>([
+    const [todoList, setTodoList] = useState<ToDoListType[]>([
         {id: toDoListID_1, title: 'What to learn', filter: 'all'},
         {id: toDoListID_2, title: 'Name To Do List', filter: 'all'},
     ])
