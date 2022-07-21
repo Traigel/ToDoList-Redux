@@ -15,8 +15,7 @@ import {
 import {
     addTitleTaskAC,
     deleteTitleTaskAC,
-    deleteTodoListTasksAC,
-    newIsDoneTaskAC, newTitleTaskAC, newTodoListTasksAC,
+    newIsDoneTaskAC, newTitleTaskAC,
     tasksReducer
 } from "./reducers/tasks-reducer";
 
@@ -79,13 +78,13 @@ function App() {
 
     const deleteTodoListHandler = (toDoListID: string) => {
         dispatchTodoList(deleteTodoListAC(toDoListID))
-        dispatchTasks(deleteTodoListTasksAC(toDoListID))
+        dispatchTasks(deleteTodoListAC(toDoListID))
     }
 
     const newTodoListHandler = (titleValue: string) => {
-        const newTodoList: ToDoListType = {id: v1(), title: titleValue, filter: 'all'}
-        dispatchTodoList(addTodoListAC(newTodoList))
-        dispatchTasks(newTodoListTasksAC(newTodoList.id))
+        const action = addTodoListAC(titleValue)
+        dispatchTodoList(action)
+        dispatchTasks(action)
     }
 
     const todoListNewTitleHandler = (toDoListID: string, newTitle: string) => {
@@ -102,10 +101,9 @@ function App() {
             <Container fixed>
                 <Grid container spacing={3} style={{paddingTop: "15px"}}>
                     {todoList.map(tl => {
-                        let filterTasks;
+                        let filterTasks = tasksTodoList[tl.id]
                         if (tl.filter === 'active') filterTasks = tasksTodoList[tl.id].filter(el => !el.isDone)
-                        else if (tl.filter === 'completed') filterTasks = tasksTodoList[tl.id].filter(el => el.isDone)
-                        else filterTasks = tasksTodoList[tl.id]
+                        if (tl.filter === 'completed') filterTasks = tasksTodoList[tl.id].filter(el => el.isDone)
                         return (
                             <Grid key={tl.id} item xs={4}>
                                 <Paper elevation={6} style={{padding: "10px"}}>

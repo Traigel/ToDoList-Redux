@@ -2,16 +2,15 @@ import {v1} from "uuid";
 import {TasksTodoListType} from "../App";
 import {
     addTitleTaskAC,
-    deleteTitleTaskAC, deleteTodoListTasksAC,
+    deleteTitleTaskAC,
     newIsDoneTaskAC,
     newTitleTaskAC,
-    newTodoListTasksAC,
     tasksReducer
 } from "./tasks-reducer";
+import {deleteTodoListAC} from "./todoList-reducer";
 
 const toDoListID_1 = v1();
 const toDoListID_2 = v1();
-const toDoListID_3 = v1();
 const taskID_1 = v1()
 
 let tasks: TasksTodoListType;
@@ -47,11 +46,10 @@ test('new title task', () => {
     const tasksReducer1 = tasksReducer(tasks, newTitleTaskAC(toDoListID_1, taskID_1, 'New Title Task'))
     expect(tasksReducer1[toDoListID_1][0].title).toBe('New Title Task')
 })
-test('new todo list task', () => {
-    const tasksReducer1 = tasksReducer(tasks, newTodoListTasksAC(toDoListID_3))
-    expect(tasksReducer1[toDoListID_3]).toBe(tasksReducer1[toDoListID_3])
-})
 test('delete todo list task', () => {
-    const tasksReducer1 = tasksReducer(tasks, deleteTodoListTasksAC(toDoListID_1))
-    expect(tasksReducer1[toDoListID_1]).toBe(undefined)
+    const tasksReducer1 = tasksReducer(tasks, deleteTodoListAC(toDoListID_1))
+    const keys = Object.keys(tasksReducer1)
+    expect(tasksReducer1[toDoListID_1]).toBeUndefined()
+    expect(keys.length).toBe(1)
+    expect(keys[0]).toBe(toDoListID_2)
 })

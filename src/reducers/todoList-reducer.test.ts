@@ -27,8 +27,7 @@ test('filter changes', () => {
 })
 
 test('add toDuList', () => {
-    const newTodoList: ToDoListType = {id: v1(), title: 'New ToDoList', filter: 'all'}
-    const todoListReducer1 = todoListReducer(todoList, addTodoListAC(newTodoList))
+    const todoListReducer1 = todoListReducer(todoList, addTodoListAC('New ToDoList'))
     expect(todoListReducer1[0].title).toBe('New ToDoList')
 })
 
