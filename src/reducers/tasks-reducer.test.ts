@@ -1,11 +1,10 @@
 import {v1} from "uuid";
-import {TasksTodoListType} from "../App";
 import {
     addTitleTaskAC,
     deleteTitleTaskAC,
     newIsDoneTaskAC,
     newTitleTaskAC,
-    tasksReducer
+    tasksReducer, TasksTodoListType
 } from "./tasks-reducer";
 import {deleteTodoListAC} from "./todoList-reducer";
 

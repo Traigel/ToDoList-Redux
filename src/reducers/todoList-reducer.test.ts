@@ -4,9 +4,9 @@ import {
     changesFilterAC,
     deleteTodoListAC,
     todoListNewTitleAC,
-    todoListReducer
+    todoListReducer,
+    ToDoListType
 } from "./todoList-reducer";
-import {ToDoListType} from "../App";
 
 const toDoListID_1 = v1();
 const toDoListID_2 = v1();

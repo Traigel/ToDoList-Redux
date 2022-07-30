@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from './BoduList.module.css'
-import {TasksType} from "../../../App";
 import {TaskTitle} from "../TaskTitle/TaskTitle";
 import IconButton from '@mui/material/IconButton/IconButton';
 import {Delete} from "@mui/icons-material";
 import {Checkbox} from "@mui/material";
+import { TasksType } from '../../../reducers/tasks-reducer';
 
 type BodyListType = {
     state: Array<TasksType>
