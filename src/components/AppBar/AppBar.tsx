@@ -43,8 +43,6 @@ export default function ButtonAppBar(props: ButtonAppBarPropsType) {
                                         colorButton={"success"}
                                     />
                                 </Grid>
-
-
                             </Grid>
                         </Container>
                     </Typography>

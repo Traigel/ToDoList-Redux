@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
-import {TitleInput} from "./TitleInput/TitleInput";
-import {ColorButtonType, SuperButton} from "../../SuperButton/SuperButton"
+import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import styles from './NewTitle.module.css'
+import {Button, TextField} from "@mui/material";
+
+export type ColorButtonType = "success" | "secondary" | "error"
 
 type NewTitleType = {
     newTitleCallBack: (title: string) => void
@@ -15,7 +16,8 @@ export const NewTitle = (props: NewTitleType) => {
     const [title, setTitle] = useState<string>('')
     const [error, setError] = useState<boolean>(false)
 
-    const onChangeInputHandler = (titleValue: string) => {
+    const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        const titleValue = e.currentTarget.value
         if (titleValue !== ' ') {
             setTitle(titleValue)
             setError(false)
@@ -30,23 +32,30 @@ export const NewTitle = (props: NewTitleType) => {
         } else setError(true)
     }
 
+    const onKeyPressInputHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+        e.key === 'Enter' && onClickButtonHandler()
+    }
+
     return (
         <div>
-            <TitleInput
-                title={title}
+            <TextField
+                value={title}
                 error={error}
-                callBack={onChangeInputHandler}
-                onKeyPressCallBack={onClickButtonHandler}
-                classNameInput={props.classNameInput}
+                label={error ? 'Error! Enter value.' : 'New task'}
+                size={"small"}
+                id="outlined-basic"
+                variant="outlined"
+                onChange={onChangeInputHandler}
+                onKeyPress={onKeyPressInputHandler}
+                className={props.classNameInput}
             />
-            <SuperButton
-                buttonName={'+'}
+            <Button
                 variant={'contained'}
                 size={"small"}
-                callBack={onClickButtonHandler}
-                colorButton={props.colorButton}
-                classNameButton={props.classNameButton}
-            />
+                color={props.colorButton}
+                onClick={onClickButtonHandler}
+                className={props.classNameButton}
+            >+</Button>
         </div>
     )
 }

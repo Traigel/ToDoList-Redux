@@ -1,7 +1,6 @@
 import React from "react"
 import style from './ToDoList.module.css';
 import {BodyList} from "./BoduList/BoduList";
-import {SuperButton} from "../SuperButton/SuperButton";
 import {NewTitle} from "./NewTitle/NewTitle";
 import {FilterType, TasksType} from "../../App";
 import {TaskTitle} from "./TaskTitle/TaskTitle";
@@ -9,6 +8,7 @@ import {Delete} from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton/IconButton";
 import Container from "@mui/material/Container/Container";
 import Grid from "@mui/material/Grid/Grid";
+import {Button} from "@mui/material";
 
 type TodoListType = {
     toDoListID: string
@@ -24,7 +24,7 @@ type TodoListType = {
     taskNewTitleCallBack: (toDoListID: string, taskID: string, newTitle: string) => void
 }
 
-export const ToDoList = (props: TodoListType) => {
+export function ToDoList(props: TodoListType) {
 
     const filterHandler = (filterItem: FilterType) => {
         if (filterItem === props.filter) return
@@ -65,28 +65,25 @@ export const ToDoList = (props: TodoListType) => {
         <Container fixed>
             <Grid container spacing={3}>
                 <Grid item>
-                    <SuperButton
-                        buttonName={'All'}
+                    <Button
                         variant={props.filter === 'all' ? 'outlined' : 'contained'}
+                        onClick={() => filterHandler('all')}
                         size={"small"}
-                        callBack={() => filterHandler('all')}
-                    />
+                    >All</Button>
                 </Grid>
                 <Grid item>
-                    <SuperButton
-                        buttonName={'Active'}
+                    <Button
                         variant={props.filter === 'active' ? 'outlined' : 'contained'}
+                        onClick={() => filterHandler('active')}
                         size={"small"}
-                        callBack={() => filterHandler('active')}
-                    />
+                    >Active</Button>
                 </Grid>
                 <Grid item>
-                    <SuperButton
-                        buttonName={'Completed'}
+                    <Button
                         variant={props.filter === 'completed' ? 'outlined' : 'contained'}
+                        onClick={() => filterHandler('completed')}
                         size={"small"}
-                        callBack={() => filterHandler('completed')}
-                    />
+                    >Completed</Button>
                 </Grid>
             </Grid>
         </Container>
