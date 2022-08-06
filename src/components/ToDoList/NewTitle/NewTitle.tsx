@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
 import styles from './NewTitle.module.css'
 import {Button, TextField} from "@mui/material";
 
@@ -11,8 +11,8 @@ type NewTitleType = {
     colorButton?: ColorButtonType
 }
 
-export const NewTitle = (props: NewTitleType) => {
-
+export const NewTitle = memo((props: NewTitleType) => {
+    console.log('NewTitle')
     const [title, setTitle] = useState<string>('')
     const [error, setError] = useState<boolean>(false)
 
@@ -58,4 +58,4 @@ export const NewTitle = (props: NewTitleType) => {
             >+</Button>
         </div>
     )
-}
+})

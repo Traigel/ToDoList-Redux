@@ -1,6 +1,6 @@
-import React from "react"
+import React, {memo, useCallback} from "react"
 import style from './ToDoList.module.css';
-import {BodyList} from "./BoduList/BoduList";
+import {Tasks} from "./Tasks/Tasks";
 import {NewTitle} from "./NewTitle/NewTitle";
 import {TaskTitle} from "./TaskTitle/TaskTitle";
 import {Delete} from "@mui/icons-material";
@@ -29,8 +29,8 @@ type TodoListType = {
     todoList: ToDoListType
 }
 
-export function ToDoList(props: TodoListType) {
-
+export const ToDoList = memo((props: TodoListType) => {
+    console.log('ToDoList')
     const {id, title, filter} = props.todoList
 
     let tasks = useSelector<AppRootStateType, TasksType[]>(state => state.tasks[id])
@@ -41,17 +41,11 @@ export function ToDoList(props: TodoListType) {
         else dispatch(changesFilterAC(id, filterItem))
     }
 
-    const newTitleHandler = (newTitle: string) => dispatch(addTitleTaskAC(id, newTitle))
-
-    const deleteTitleHandler = (taskID: string) => dispatch(deleteTitleTaskAC(id, taskID))
-
-    const isDoneTitleHandler = (taskID: string, newIsDone: boolean) => dispatch(newIsDoneTaskAC(id, taskID, newIsDone))
+    const newTitleHandler = useCallback((newTitle: string) => dispatch(addTitleTaskAC(id, newTitle)), [dispatch])
 
     const deleteTodoListHandler = () => dispatch(deleteTodoListAC(id))
 
     const todoListNewTitleHandler = (newTitle: string) => dispatch(todoListNewTitleAC(id, newTitle))
-
-    const taskNewTitleHandler = (taskID: string, newTitle: string) => dispatch(newTitleTaskAC(id, taskID, newTitle))
 
     if (filter === 'active') tasks = tasks.filter(el => !el.isDone)
     if (filter === 'completed') tasks = tasks.filter(el => el.isDone)
@@ -69,12 +63,18 @@ export function ToDoList(props: TodoListType) {
                 classNameButton={style.button}
             />
         </div>
-        <BodyList
-            state={tasks}
-            deleteCallBack={deleteTitleHandler}
-            isDoneCallBack={isDoneTitleHandler}
-            taskNewTitleCallBack={taskNewTitleHandler}
-        />
+        {tasks.length > 0 ?
+            tasks.map(task => {
+                return <Tasks
+                    key={task.id}
+                    tasks={task}
+                    todoListID={id}
+                />
+            })
+            :
+            <h3>Your tasks list is empty</h3>
+        }
+
         <Container fixed>
             <Grid container spacing={3}>
                 <Grid item>
@@ -101,4 +101,4 @@ export function ToDoList(props: TodoListType) {
             </Grid>
         </Container>
     </div>
-}
+})

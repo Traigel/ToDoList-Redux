@@ -1,5 +1,5 @@
 import TextField from '@mui/material/TextField/TextField';
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
 
 type TaskTitlePropsType = {
     title: string
@@ -7,7 +7,7 @@ type TaskTitlePropsType = {
     className?: string
 }
 
-export const TaskTitle = (props: TaskTitlePropsType) => {
+export const TaskTitle = memo((props: TaskTitlePropsType) => {
 
     const [visibility, setVisibility] = useState<boolean>(false)
     const [titleValue, setTitleValue] = useState<string>(props.title)
@@ -50,4 +50,4 @@ export const TaskTitle = (props: TaskTitlePropsType) => {
             :
             <span onDoubleClick={onVisibilityHandler} className={props.className}>{props.title}</span>
     )
-}
+})
