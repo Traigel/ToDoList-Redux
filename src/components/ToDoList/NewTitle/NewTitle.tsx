@@ -9,6 +9,7 @@ type NewTitleType = {
     classNameButton?: string
     classNameInput?: string
     colorButton?: ColorButtonType
+    backgroundColorButton?: string
 }
 
 export const NewTitle = memo((props: NewTitleType) => {
@@ -36,6 +37,8 @@ export const NewTitle = memo((props: NewTitleType) => {
         e.key === 'Enter' && onClickButtonHandler()
     }
 
+    const backgroundColorButton = props.backgroundColorButton ? {backgroundColor: props.backgroundColorButton} : {}
+
     return (
         <div>
             <TextField
@@ -55,6 +58,7 @@ export const NewTitle = memo((props: NewTitleType) => {
                 color={props.colorButton}
                 onClick={onClickButtonHandler}
                 className={props.classNameButton}
+                style={backgroundColorButton}
             >+</Button>
         </div>
     )

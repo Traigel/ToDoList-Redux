@@ -3,7 +3,7 @@ import './App.css';
 import {ToDoList} from "./components/ToDoList/ToDoList";
 import ButtonAppBar from "./components/AppBar/AppBar";
 import Container from '@mui/material/Container/Container';
-import {Grid, Paper, } from "@mui/material";
+import {Grid, Paper,} from "@mui/material";
 import {addTodoListAC, ToDoListType} from "./reducers/todoList-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./redux/store";
