@@ -1,5 +1,6 @@
 import {v1} from "uuid";
 import {AddTodoListACType, DeleteTodoListACType} from "./todoList-reducer";
+import {TaskPriorities, TaskStatuses, TasksType} from "../api/api";
 
 type AddTitleTaskACType = ReturnType<typeof addTitleTaskAC>
 type DeleteTitleTaskACType = ReturnType<typeof deleteTitleTaskAC>
@@ -8,11 +9,7 @@ type NewTitleTaskACType = ReturnType<typeof newTitleTaskAC>
 type ActionType = AddTitleTaskACType | DeleteTitleTaskACType | NewIsDoneTaskACType | NewTitleTaskACType
     | AddTodoListACType | DeleteTodoListACType
 
-export type TasksType = {
-    id: string
-    title: string
-    isDone: boolean
-}
+export type TasksDomainType = TasksType
 
 export type TasksTodoListType = {
     [toDoListID: string]: TasksType[]
@@ -23,8 +20,26 @@ const initialState: TasksTodoListType = {}
 export const tasksReducer = (state = initialState, action: ActionType): TasksTodoListType => {
     switch (action.type) {
         case 'ADD-TITLE-TASK': {
-            const newTitleObj = {id: v1(), title: action.payload.newTitle, isDone: false}
-            return {...state, [action.payload.toDoListID]: [newTitleObj, ...state[action.payload.toDoListID]]}
+            const newTitleObj: TasksType = {
+                id: v1(),
+                todoListId: action.payload.toDoListID,
+                title: action.payload.newTitle,
+                status: TaskStatuses.New,
+                startDate: '',
+                deadline: '',
+                addedDate: '',
+                order: 0,
+                priority: TaskPriorities.Low,
+                description: ''
+            }
+
+            return {
+                ...state,
+                [action.payload.toDoListID]: [
+                    newTitleObj,
+                    ...state[action.payload.toDoListID]
+                ]
+            }
         }
         case 'DELETE-TITLE-TASK': {
             return {

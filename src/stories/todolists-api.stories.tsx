@@ -6,7 +6,7 @@ export default {                    //по дефолту создаётся к�
 }
 
 export const GetToDoList = () => {
-    const [state, setState] = useState(null)
+    const [state, setState] = useState<any>(null)
     useEffect(() => {
         toDoListAPI.getToDoList()
             .then(res => {
@@ -18,9 +18,9 @@ export const GetToDoList = () => {
 }
 
 export const PostToDoList = () => {
-    const [state, setState] = useState(null)
+    const [state, setState] = useState<any>(null)
     useEffect(() => {
-        toDoListAPI.postToDoList('New ToDo List')
+        toDoListAPI.createToDoList('New ToDo List')
             .then(res => {
                 setState(res.data.data.item)
             })
@@ -30,9 +30,9 @@ export const PostToDoList = () => {
 }
 
 export const DeleteToDoList = () => {
-    const [state, setState] = useState(null)
+    const [state, setState] = useState<any>(null)
     useEffect(() => {
-        toDoListAPI.deleteToDoList('6782cb5a-b41d-45b3-a248-860f53fa16c6')
+        toDoListAPI.deleteToDoList('4e64bc02-91bd-4438-95c6-a0c461d2ade2')
             .then(res => {
                 setState(res.data)
             })
@@ -42,9 +42,9 @@ export const DeleteToDoList = () => {
 }
 
 export const PutToDoList = () => {
-    const [state, setState] = useState(null)
+    const [state, setState] = useState<any>(null)
     useEffect(() => {
-        toDoListAPI.putToDoLists('532b6c39-dc5a-4c81-afc8-55bc5be0bd90', 'New ToDo List')
+        toDoListAPI.updateToDoLists('532b6c39-dc5a-4c81-afc8-55bc5be0bd90', 'New ToDo List')
             .then(res => {
                 setState(res.data)
             })

@@ -10,30 +10,95 @@ const instance = axios.create({
 
 export const toDoListAPI = {
     getToDoList() {
-        return instance.get('/todo-lists')
+        return instance.get<ToDoListType[]>('/todo-lists')
     },
-    postToDoList(title: string) {
-        return instance.post('/todo-lists', {title})
+    createToDoList(title: string) {
+        return instance.post<CommonTodoResponseType<RootToDoListData>>('/todo-lists', {title})
     },
-    deleteToDoList(todolistId: string) {
-        return instance.delete(`/todo-lists/${todolistId}`)
+    deleteToDoList<CommonTodoResponseType>(todolistId: string) {
+        return instance.delete<CommonTodoResponseType>(`/todo-lists/${todolistId}`)
     },
-    putToDoLists(todolistId: string, title: string) {
-        return instance.put(`/todo-lists/${todolistId}`, {title})
+    updateToDoLists(todolistId: string, title: string) {
+        return instance.put<CommonTodoResponseType>(`/todo-lists/${todolistId}`, {title})
     }
 }
 
 export const tasksAPI = {
     getTask(todolistId: string) {
-        return instance.get(`/todo-lists/${todolistId}/tasks`)
+        return instance.get<GetTaskType>(`/todo-lists/${todolistId}/tasks`)
     },
-    postTask(todolistId: string, title: string) {
-        return instance.post(`/todo-lists/${todolistId}/tasks`, {title})
+    createTask(todolistId: string, title: string) {
+        return instance.post<CommonTaskResponseType<RootTaskData>>(`/todo-lists/${todolistId}/tasks`, {title})
     },
     deleteTask(todolistId: string, taskId: string) {
-        return instance.delete(`/todo-lists/${todolistId}/tasks/${taskId}`)
+        return instance.delete<CommonTaskResponseType>(`/todo-lists/${todolistId}/tasks/${taskId}`)
     },
-    putTask(todolistId: string, taskId: string, title: string) {
-        return instance.put(`/todo-lists/${todolistId}/tasks/${taskId}`, {title})
+    updateTask(todolistId: string, taskId: string, title: string) {
+        return instance.put<CommonTaskResponseType<RootTaskData>>(`/todo-lists/${todolistId}/tasks/${taskId}`, {title})
     }
+}
+
+export type CommonTodoResponseType<T = {}> = {
+    messages: string[];
+    fieldsErrors: string[];
+    resultCode: number;
+    data: T;
+}
+
+export type RootToDoListData = {
+    item: ToDoListType;
+}
+
+export type ToDoListType = {
+    id: string;
+    title: string;
+    addedDate: string;
+    order: number;
+}
+
+
+
+export type CommonTaskResponseType<T = {}> = {
+    messages: string[];
+    fieldsErrors: string[];
+    resultCode: number;
+    data: T;
+}
+
+export type RootTaskData = {
+    item: TasksType;
+}
+
+export type GetTaskType = {
+    items: TasksType[];
+    totalCount: number;
+    error?: any;
+}
+
+export type TasksType = {
+    id: string;
+    title: string;
+    description?: any;
+    todoListId: string;
+    order: number;
+    status: TaskStatuses;
+    priority: TaskPriorities;
+    startDate?: any;
+    deadline?: any;
+    addedDate: string;
+}
+
+export enum TaskStatuses {
+    New = 0,
+    InPProgress = 1,
+    Completed = 2,
+    Draft = 3
+}
+
+export enum TaskPriorities {
+    Low = 0,
+    Middle = 1,
+    Hi = 2,
+    Urgently = 3,
+    Later = 4
 }

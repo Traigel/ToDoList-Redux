@@ -6,7 +6,7 @@ export default {                    //по дефолту создаётся к�
 }
 
 export const GetTask = () => {
-    const [state, setState] = useState(null)
+    const [state, setState] = useState<any>(null)
     useEffect(() => {
         tasksAPI.getTask('e85b39c5-c325-4647-8b71-787910c25158')
             .then(res => {
@@ -17,9 +17,9 @@ export const GetTask = () => {
 }
 
 export const PostTask = () => {
-    const [state, setState] = useState(null)
+    const [state, setState] = useState<any>(null)
     useEffect(() => {
-        tasksAPI.postTask('e85b39c5-c325-4647-8b71-787910c25158', 'New Task')
+        tasksAPI.createTask('e85b39c5-c325-4647-8b71-787910c25158', 'New Task')
             .then(res => {
                 setState(res.data.data.item)
             })
@@ -28,9 +28,9 @@ export const PostTask = () => {
 }
 
 export const DeleteTask = () => {
-    const [state, setState] = useState(null)
+    const [state, setState] = useState<any>(null)
     useEffect(() => {
-        tasksAPI.deleteTask('e85b39c5-c325-4647-8b71-787910c25158', 'ecc60145-a939-4d2d-9d70-e57c176625f2')
+        tasksAPI.deleteTask('e85b39c5-c325-4647-8b71-787910c25158', '079709ef-bc20-49ac-8087-cc25969f77c4')
             .then(res => {
                 setState(res.data)
             })
@@ -39,9 +39,9 @@ export const DeleteTask = () => {
 }
 
 export const PutToTask = () => {
-    const [state, setState] = useState(null)
+    const [state, setState] = useState<any>(null)
     useEffect(() => {
-        tasksAPI.putTask('e85b39c5-c325-4647-8b71-787910c25158', '2c0cbb80-bd26-4266-bbcf-a39ab274a766', 'Task name')
+        tasksAPI.updateTask('e85b39c5-c325-4647-8b71-787910c25158', '2c0cbb80-bd26-4266-bbcf-a39ab274a766', 'Task name')
             .then(res => {
                 setState(res.data.data.item)
             })
