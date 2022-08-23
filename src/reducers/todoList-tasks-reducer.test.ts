@@ -2,16 +2,29 @@ import {v1} from "uuid";
 import {
     tasksReducer, TasksTodoListType
 } from "./tasks-reducer";
-import {addTodoListAC, todoListReducer, ToDoListType} from "./todoList-reducer";
+import {addTodoListAC, ToDoListDomainType, todoListReducer} from "./todoList-reducer";
+import {TaskPriorities, TaskStatuses} from "../api/api";
 
 const toDoListID_1 = v1();
 const toDoListID_2 = v1();
 
-let todoList: ToDoListType[];
+let todoList: ToDoListDomainType[];
 beforeEach(() => {
     todoList = [
-        {id: toDoListID_1, title: 'What to learn', filter: 'all'},
-        {id: toDoListID_2, title: 'Name To Do List', filter: 'all'},
+        {
+            id: '1',
+            title: 'HTML/CSS',
+            filter: 'all',
+            addedDate: '',
+            order: 0
+        },
+        {
+            id: '2',
+            title: 'JS/TS',
+            filter: 'all',
+            addedDate: '',
+            order: 0
+        },
     ]
 })
 
@@ -19,14 +32,80 @@ let tasks: TasksTodoListType;
 beforeEach(() => {
     tasks = {
         [toDoListID_1]: [
-            {id: v1(), title: "HTML&CSS", isDone: true},
-            {id: v1(), title: "JS", isDone: true},
-            {id: v1(), title: "ReactJS", isDone: false},
-            {id: v1(), title: "TypeScript", isDone: false},
+            {
+                id: '0',
+                todoListId: '2',
+                title: 'HTML/CSS',
+                status: TaskStatuses.New,
+                startDate: '',
+                deadline: '',
+                addedDate: '',
+                order: 0,
+                priority: TaskPriorities.Low,
+                description: ''
+            },
+            {
+                id: '1',
+                todoListId: '2',
+                title: 'HTML/CSS',
+                status: TaskStatuses.New,
+                startDate: '',
+                deadline: '',
+                addedDate: '',
+                order: 0,
+                priority: TaskPriorities.Low,
+                description: ''
+            },
+            {
+                id: '2',
+                todoListId: '2',
+                title: 'HTML/CSS',
+                status: TaskStatuses.New,
+                startDate: '',
+                deadline: '',
+                addedDate: '',
+                order: 0,
+                priority: TaskPriorities.Low,
+                description: ''
+            },
+            {
+                id: '3',
+                todoListId: '2',
+                title: 'HTML/CSS',
+                status: TaskStatuses.New,
+                startDate: '',
+                deadline: '',
+                addedDate: '',
+                order: 0,
+                priority: TaskPriorities.Low,
+                description: ''
+            },
         ],
         [toDoListID_2]: [
-            {id: v1(), title: "Hello", isDone: true},
-            {id: v1(), title: "Yo! Bro", isDone: true},
+            {
+                id: '0',
+                todoListId: '3',
+                title: 'HTML/CSS',
+                status: TaskStatuses.New,
+                startDate: '',
+                deadline: '',
+                addedDate: '',
+                order: 0,
+                priority: TaskPriorities.Low,
+                description: ''
+            },
+            {
+                id: '1',
+                todoListId: '3',
+                title: 'HTML/CSS',
+                status: TaskStatuses.New,
+                startDate: '',
+                deadline: '',
+                addedDate: '',
+                order: 0,
+                priority: TaskPriorities.Low,
+                description: ''
+            },
         ],
     }
 })

@@ -2,6 +2,8 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import React from 'react';
 import {Tasks} from "./Tasks";
 import {StoreProviderDecorator} from "../../../redux/StoreProviderDecorator";
+import {TaskPriorities, TaskStatuses} from "../../../api/api";
+import {v1} from "uuid";
 
 
 export default {                                    //по дефолту создаётся компонент в StoryBook
@@ -27,10 +29,32 @@ const Template: ComponentStory<typeof Tasks> = (args) => <Tasks {...args}/>
 
 export const TaskPrimaryIsDoneFalse = Template.bind({});
 TaskPrimaryIsDoneFalse.args = {
-    tasks: {id: '1', title: 'HTML/CSS', isDone: false},
+    tasks: {
+        id: '1',
+        todoListId: '2',
+        title: 'HTML/CSS',
+        status: TaskStatuses.New,
+        startDate: '',
+        deadline: '',
+        addedDate: '',
+        order: 0,
+        priority: TaskPriorities.Low,
+        description: ''
+    }
 }
 
 export const TaskPrimaryIsDoneTrue = Template.bind({});
 TaskPrimaryIsDoneTrue.args = {
-    tasks: {id: '1', title: 'JS/TS', isDone: true},
+    tasks: {
+        id: '1',
+        todoListId: '2',
+        title: 'JS/TS',
+        status: TaskStatuses.New,
+        startDate: '',
+        deadline: '',
+        addedDate: '',
+        order: 0,
+        priority: TaskPriorities.Low,
+        description: ''
+    }
 }

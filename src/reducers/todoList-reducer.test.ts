@@ -2,20 +2,31 @@ import {v1} from "uuid";
 import {
     addTodoListAC,
     changesFilterAC,
-    deleteTodoListAC,
+    deleteTodoListAC, ToDoListDomainType,
     todoListNewTitleAC,
     todoListReducer,
-    ToDoListType
 } from "./todoList-reducer";
 
 const toDoListID_1 = v1();
 const toDoListID_2 = v1();
 
-let todoList: ToDoListType[];
+let todoList: ToDoListDomainType[];
 beforeEach(() => {
     todoList = [
-        {id: toDoListID_1, title: 'What to learn', filter: 'all'},
-        {id: toDoListID_2, title: 'Name To Do List', filter: 'all'},
+        {
+            id: '1',
+            title: 'HTML/CSS',
+            filter: 'all',
+            addedDate: '',
+            order: 0
+        },
+        {
+            id: '2',
+            title: 'JS/TS',
+            filter: 'all',
+            addedDate: '',
+            order: 0
+        },
     ]
 })
 

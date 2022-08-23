@@ -12,21 +12,16 @@ import {
     changesFilterAC,
     deleteTodoListAC,
     FilterType,
+    ToDoListDomainType,
     todoListNewTitleAC,
-    ToDoListType
 } from "../../reducers/todoList-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../redux/store";
-import {
-    addTitleTaskAC,
-    deleteTitleTaskAC,
-    newIsDoneTaskAC,
-    newTitleTaskAC,
-    TasksType
-} from "../../reducers/tasks-reducer";
+import {addTitleTaskAC,} from "../../reducers/tasks-reducer";
+import {TaskStatuses, TasksType} from "../../api/api";
 
 type TodoListType = {
-    todoList: ToDoListType
+    todoList: ToDoListDomainType
 }
 
 export const ToDoList = memo((props: TodoListType) => {
@@ -47,8 +42,8 @@ export const ToDoList = memo((props: TodoListType) => {
 
     const todoListNewTitleHandler = (newTitle: string) => dispatch(todoListNewTitleAC(id, newTitle))
 
-    if (filter === 'active') tasks = tasks.filter(el => !el.isDone)
-    if (filter === 'completed') tasks = tasks.filter(el => el.isDone)
+    if (filter === 'active') tasks = tasks.filter(el => el.status === TaskStatuses.New)
+    if (filter === 'completed') tasks = tasks.filter(el => el.status === TaskStatuses.Completed)
 
     return <div className={style.item}>
         <h3>

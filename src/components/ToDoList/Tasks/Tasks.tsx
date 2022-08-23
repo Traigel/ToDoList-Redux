@@ -4,8 +4,9 @@ import {TaskTitle} from "../TaskTitle/TaskTitle";
 import IconButton from '@mui/material/IconButton/IconButton';
 import {Delete} from "@mui/icons-material";
 import {Checkbox} from "@mui/material";
-import {deleteTitleTaskAC, newIsDoneTaskAC, newTitleTaskAC, TasksType} from '../../../reducers/tasks-reducer';
+import {deleteTitleTaskAC, newStatusTaskAC, newTitleTaskAC} from '../../../reducers/tasks-reducer';
 import {useDispatch} from "react-redux";
+import {TaskStatuses, TasksType} from "../../../api/api";
 
 type BodyListType = {
     tasks: TasksType
@@ -23,7 +24,7 @@ export const Tasks = memo((props: BodyListType) => {
 
     const isDoneTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let newIsDoneValue = e.currentTarget.checked;
-        dispatch(newIsDoneTaskAC(props.todoListID, props.tasks.id, newIsDoneValue))
+        dispatch(newStatusTaskAC(props.todoListID, props.tasks.id, newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New))
     }
 
     const taskNewTitleHandler = (newTitle: string) => {
@@ -34,13 +35,13 @@ export const Tasks = memo((props: BodyListType) => {
         <div>
             <div className={styles.items}>
                 <Checkbox
-                    checked={props.tasks.isDone}
+                    checked={props.tasks.status === TaskStatuses.Completed}
                     onChange={isDoneTitleHandler}
                 />
                 <TaskTitle
                     title={props.tasks.title}
                     titleValueCallBack={taskNewTitleHandler}
-                    className={props.tasks.isDone ? styles.isDone : ''}
+                    className={props.tasks.status === TaskStatuses.Completed ? styles.isDone : ''}
                 />
                 <IconButton aria-label="delete">
                     <Delete onClick={deleteTitleHandler}/>
