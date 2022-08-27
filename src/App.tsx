@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect} from 'react';
 import './App.css';
-import {ToDoList} from "./components/ToDoList/ToDoList";
+import {ToDoList} from "./features/todoList/ToDoList";
 import ButtonAppBar from "./components/AppBar/AppBar";
 import Container from '@mui/material/Container/Container';
 import {Grid, Paper,} from "@mui/material";

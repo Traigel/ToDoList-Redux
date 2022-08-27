@@ -1,8 +1,8 @@
 import React, {memo, useCallback, useEffect} from "react"
 import style from './ToDoList.module.css';
 import {Tasks} from "./Tasks/Tasks";
-import {NewTitle} from "./NewTitle/NewTitle";
-import {TaskTitle} from "./TaskTitle/TaskTitle";
+import {NewTitle} from "../../components/NewTitle/NewTitle";
+import {TaskTitle} from "../../components/TaskTitle/TaskTitle";
 import {Delete} from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton/IconButton";
 import Container from "@mui/material/Container/Container";

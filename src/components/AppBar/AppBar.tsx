@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import {NewTitle} from "../ToDoList/NewTitle/NewTitle";
+import {NewTitle} from "../NewTitle/NewTitle";
 import style from './AppBar.module.css'
 import Container from "@mui/material/Container/Container";
 import {Grid} from "@mui/material";

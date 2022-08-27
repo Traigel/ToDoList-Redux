@@ -1,6 +1,6 @@
 import React, {ChangeEvent, memo} from 'react';
 import styles from './Tasks.module.css'
-import {TaskTitle} from "../TaskTitle/TaskTitle";
+import {TaskTitle} from "../../../components/TaskTitle/TaskTitle";
 import IconButton from '@mui/material/IconButton/IconButton';
 import {Delete} from "@mui/icons-material";
 import {Checkbox} from "@mui/material";
