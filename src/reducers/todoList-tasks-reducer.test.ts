@@ -110,17 +110,17 @@ beforeEach(() => {
     }
 })
 
-test('new todo list and task', () => {
-    const action = addTodoListAC('New todoList')
-    const todoListReducer1 = todoListReducer(todoList, action)
-    const tasksReducer1 = tasksReducer(tasks, action)
-
-    const keys = Object.keys(tasksReducer1)
-    const newKey = keys.find(el => el !== toDoListID_1 && el !== toDoListID_2)
-    if (!newKey) throw Error('new key should be added')
-
-    expect(keys.length).toBe(3)
-    expect(newKey).toBe(action.payload.toDoListID)
-    expect(todoListReducer1[0].id).toBe(action.payload.toDoListID)
-    expect(tasksReducer1[newKey]).toStrictEqual([])
-})
+// test('new todo list and task', () => {
+//     const action = addTodoListAC('New todoList')
+//     const todoListReducer1 = todoListReducer(todoList, action)
+//     const tasksReducer1 = tasksReducer(tasks, action)
+//
+//     const keys = Object.keys(tasksReducer1)
+//     const newKey = keys.find(el => el !== toDoListID_1 && el !== toDoListID_2)
+//     if (!newKey) throw Error('new key should be added')
+//
+//     expect(keys.length).toBe(3)
+//     expect(newKey).toBe(action.payload.toDoListID)
+//     expect(todoListReducer1[0].id).toBe(action.payload.toDoListID)
+//     expect(tasksReducer1[newKey]).toStrictEqual([])
+// })

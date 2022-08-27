@@ -1,12 +1,13 @@
-import React, {memo, ChangeEvent} from 'react';
+import React, {ChangeEvent, memo} from 'react';
 import styles from './Tasks.module.css'
 import {TaskTitle} from "../TaskTitle/TaskTitle";
 import IconButton from '@mui/material/IconButton/IconButton';
 import {Delete} from "@mui/icons-material";
 import {Checkbox} from "@mui/material";
-import {deleteTitleTaskAC, newStatusTaskAC, newTitleTaskAC} from '../../../reducers/tasks-reducer';
+import {deleteTaskTC, updateTaskTC} from '../../../reducers/tasks-reducer';
 import {useDispatch} from "react-redux";
 import {TaskStatuses, TasksType} from "../../../api/api";
+import {AppDispatch} from "../../../redux/store";
 
 type BodyListType = {
     tasks: TasksType
@@ -16,19 +17,20 @@ type BodyListType = {
 export const Tasks = memo((props: BodyListType) => {
     console.log('Tasks')
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch<AppDispatch>()
 
     const deleteTitleHandler = () => {
-        dispatch(deleteTitleTaskAC(props.todoListID, props.tasks.id))
+        dispatch(deleteTaskTC(props.todoListID, props.tasks.id))
     }
 
     const isDoneTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let newIsDoneValue = e.currentTarget.checked;
-        dispatch(newStatusTaskAC(props.todoListID, props.tasks.id, newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New))
+        const status = newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New
+        dispatch(updateTaskTC(props.todoListID, props.tasks.id, {status}))
     }
 
-    const taskNewTitleHandler = (newTitle: string) => {
-        dispatch(newTitleTaskAC(props.todoListID, props.tasks.id, newTitle))
+    const taskNewTitleHandler = (title: string) => {
+        dispatch(updateTaskTC(props.todoListID, props.tasks.id, {title}))
     }
 
     return (

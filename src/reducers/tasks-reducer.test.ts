@@ -2,7 +2,6 @@ import {v1} from "uuid";
 import {
     addTitleTaskAC,
     deleteTitleTaskAC,
-    newTitleTaskAC,
     tasksReducer, TasksTodoListType
 } from "./tasks-reducer";
 import {deleteTodoListAC} from "./todoList-reducer";
@@ -94,10 +93,10 @@ beforeEach(() => {
     }
 })
 
-test('add title task', () => {
-    const tasksReducer1 = tasksReducer(tasks, addTitleTaskAC(toDoListID_1, "New task"))
-    expect(tasksReducer1[toDoListID_1][0].title).toBe("New task")
-})
+// test('add title task', () => {
+//     const tasksReducer1 = tasksReducer(tasks, addTitleTaskAC(toDoListID_1, "New task"))
+//     expect(tasksReducer1[toDoListID_1][0].title).toBe("New task")
+// })
 test('delete title task', () => {
     const tasksReducer1 = tasksReducer(tasks, deleteTitleTaskAC(toDoListID_1, taskID_1))
     expect(tasksReducer1[toDoListID_1][0].id).not.toBe(taskID_1)
@@ -107,10 +106,10 @@ test('delete title task', () => {
 //     const tasksReducer1 = tasksReducer(tasks, newIsDoneTaskAC(toDoListID_1, taskID_1, false))
 //     expect(tasksReducer1[toDoListID_1][0].isDone).toBe(false)
 // })
-test('new title task', () => {
-    const tasksReducer1 = tasksReducer(tasks, newTitleTaskAC(toDoListID_1, taskID_1, 'New Title Task'))
-    expect(tasksReducer1[toDoListID_1][0].title).toBe('New Title Task')
-})
+// test('new title task', () => {
+//     const tasksReducer1 = tasksReducer(tasks, newTitleTaskAC(toDoListID_1, taskID_1, 'New Title Task'))
+//     expect(tasksReducer1[toDoListID_1][0].title).toBe('New Title Task')
+// })
 test('delete todo list task', () => {
     const tasksReducer1 = tasksReducer(tasks, deleteTodoListAC(toDoListID_1))
     const keys = Object.keys(tasksReducer1)

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {tasksAPI} from "../api/api";
+import {TaskPriorities, tasksAPI, TaskStatuses, UpdateTaskModelType} from "../api/api";
 
 export default {                    //по дефолту создаётся компонент в StoryBook
     title: 'Api/Tasks'     //имя папки и в ней раздел
@@ -40,8 +40,16 @@ export const DeleteTask = () => {
 
 export const PutToTask = () => {
     const [state, setState] = useState<any>(null)
+    const model: UpdateTaskModelType = {
+        title: 'Task name',
+        description: '',
+        status: TaskStatuses.New,
+        priority: TaskPriorities.Low,
+        startDate: '',
+        deadline: ''
+    }
     useEffect(() => {
-        tasksAPI.updateTask('e85b39c5-c325-4647-8b71-787910c25158', '2c0cbb80-bd26-4266-bbcf-a39ab274a766', 'Task name')
+        tasksAPI.updateTask('e85b39c5-c325-4647-8b71-787910c25158', '2c0cbb80-bd26-4266-bbcf-a39ab274a766', model)
             .then(res => {
                 setState(res.data.data.item)
             })

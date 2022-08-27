@@ -1,4 +1,4 @@
-import React, {memo, useCallback} from "react"
+import React, {memo, useCallback, useEffect} from "react"
 import style from './ToDoList.module.css';
 import {Tasks} from "./Tasks/Tasks";
 import {NewTitle} from "./NewTitle/NewTitle";
@@ -10,14 +10,14 @@ import Grid from "@mui/material/Grid/Grid";
 import {Button} from "@mui/material";
 import {
     changesFilterAC,
-    deleteTodoListAC,
+    deleteToDoListTC,
     FilterType,
     ToDoListDomainType,
-    todoListNewTitleAC,
+    updateToDoListTC,
 } from "../../reducers/todoList-reducer";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../redux/store";
-import {addTitleTaskAC,} from "../../reducers/tasks-reducer";
+import {AppDispatch, AppRootStateType} from "../../redux/store";
+import {createTaskTC, getTasksTC,} from "../../reducers/tasks-reducer";
 import {TaskStatuses, TasksType} from "../../api/api";
 
 type TodoListType = {
@@ -29,21 +29,25 @@ export const ToDoList = memo((props: TodoListType) => {
     const {id, title, filter} = props.todoList
 
     let tasks = useSelector<AppRootStateType, TasksType[]>(state => state.tasks[id])
-    const dispatch = useDispatch()
+    const dispatch = useDispatch<AppDispatch>()
 
     const filterHandler = (filterItem: FilterType) => {
         if (filterItem === filter) return
         else dispatch(changesFilterAC(id, filterItem))
     }
 
-    const newTitleHandler = useCallback((newTitle: string) => dispatch(addTitleTaskAC(id, newTitle)), [dispatch])
+    const newTitleHandler = useCallback((newTitle: string) => dispatch(createTaskTC(id, newTitle)), [dispatch])
 
-    const deleteTodoListHandler = () => dispatch(deleteTodoListAC(id))
+    const deleteTodoListHandler = () => dispatch(deleteToDoListTC(id))
 
-    const todoListNewTitleHandler = (newTitle: string) => dispatch(todoListNewTitleAC(id, newTitle))
+    const todoListNewTitleHandler = (newTitle: string) => dispatch(updateToDoListTC(id, newTitle))
 
     if (filter === 'active') tasks = tasks.filter(el => el.status === TaskStatuses.New)
     if (filter === 'completed') tasks = tasks.filter(el => el.status === TaskStatuses.Completed)
+
+    useEffect(() => {
+        dispatch(getTasksTC(id))
+    }, [])
 
     return <div className={style.item}>
         <h3>
