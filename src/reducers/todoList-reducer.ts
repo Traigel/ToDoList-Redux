@@ -28,8 +28,8 @@ export const todoListReducer = (state = initialState, action: ToDoListActionType
         }
         case 'ADD-TODOLIST': {
             return [{
-                id: action.payload.toDoListType.id,
-                title: action.payload.toDoListType.title,
+                id: action.payload.toDoList.id,
+                title: action.payload.toDoList.title,
                 filter: 'all',
                 addedDate: '',
                 order: 0
@@ -55,8 +55,8 @@ export const todoListReducer = (state = initialState, action: ToDoListActionType
 export const getTodoListAC = (toDoLists: ToDoListType[]) => {
     return {type: 'GET-TODOLIST', toDoLists} as const
 }
-export const addTodoListAC = (toDoListType: ToDoListType) => {
-    return {type: 'ADD-TODOLIST', payload: {toDoListType}} as const
+export const addTodoListAC = (toDoList: ToDoListType) => {
+    return {type: 'ADD-TODOLIST', payload: {toDoList}} as const
 }
 export const deleteTodoListAC = (toDoListID: string) => {
     return {type: 'DELETE-TODOLIST', payload: {toDoListID}} as const
