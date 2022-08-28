@@ -9,7 +9,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, AppRootStateType} from "./redux/store";
 
 function App() {
-    console.log("App")
     const todoLists = useSelector<AppRootStateType, ToDoListDomainType[]>(state => state.todoList)
     const dispatch = useDispatch<AppDispatch>()
 
