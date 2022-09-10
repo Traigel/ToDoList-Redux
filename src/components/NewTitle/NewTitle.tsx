@@ -10,10 +10,12 @@ type NewTitleType = {
     classNameInput?: string
     colorButton?: ColorButtonType
     backgroundColorButton?: string
+    valueLabel?: string
+    disabled?: boolean
 }
 
 export const NewTitle = memo((props: NewTitleType) => {
-    console.log('NewTitle')
+
     const [title, setTitle] = useState<string>('')
     const [error, setError] = useState<boolean>(false)
 
@@ -39,18 +41,21 @@ export const NewTitle = memo((props: NewTitleType) => {
 
     const backgroundColorButton = props.backgroundColorButton ? {backgroundColor: props.backgroundColorButton} : {}
 
+    const valueLabel = props.valueLabel ? error ? 'Error! Enter value.' : props.valueLabel : ''
+
     return (
         <div>
             <TextField
                 value={title}
                 error={error}
-                label={error ? 'Error! Enter value.' : 'New task'}
+                label={valueLabel}
                 size={"small"}
                 id="outlined-basic"
                 variant="outlined"
                 onChange={onChangeInputHandler}
                 onKeyPress={onKeyPressInputHandler}
                 className={props.classNameInput}
+                disabled={props.disabled}
             />
             <Button
                 variant={'contained'}
@@ -59,6 +64,7 @@ export const NewTitle = memo((props: NewTitleType) => {
                 onClick={onClickButtonHandler}
                 className={props.classNameButton}
                 style={backgroundColorButton}
+                disabled={props.disabled}
             >+</Button>
         </div>
     )

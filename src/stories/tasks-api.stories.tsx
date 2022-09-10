@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {TaskPriorities, tasksAPI, TaskStatuses, UpdateTaskModelType} from "../api/api";
+import {TASK_PRIORITIES, TASK_STATUS, tasksAPI, UpdateTaskModelType} from "../api/api";
 
 export default {                    //по дефолту создаётся компонент в StoryBook
     title: 'Api/Tasks'     //имя папки и в ней раздел
@@ -43,8 +43,8 @@ export const PutToTask = () => {
     const model: UpdateTaskModelType = {
         title: 'Task name',
         description: '',
-        status: TaskStatuses.New,
-        priority: TaskPriorities.Low,
+        status: TASK_STATUS.New,
+        priority: TASK_PRIORITIES.Low,
         startDate: '',
         deadline: ''
     }

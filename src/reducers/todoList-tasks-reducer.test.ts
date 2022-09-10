@@ -3,7 +3,7 @@ import {
     tasksReducer, TasksTodoListType
 } from "./tasks-reducer";
 import {addTodoListAC, ToDoListDomainType, todoListReducer} from "./todoList-reducer";
-import {TaskPriorities, TaskStatuses, ToDoListType} from "../api/api";
+import {TASK_PRIORITIES, TASK_STATUS, ToDoListType} from "../api/api";
 
 const toDoListID_1 = v1();
 const toDoListID_2 = v1();
@@ -19,14 +19,16 @@ beforeEach(() => {
             title: 'HTML/CSS',
             filter: 'all',
             addedDate: '',
-            order: 0
+            order: 0,
+            entityStatus: "idle"
         },
         {
             id: '2',
             title: 'JS/TS',
             filter: 'all',
             addedDate: '',
-            order: 0
+            order: 0,
+            entityStatus: "idle"
         },
     ]
     tasks = {
@@ -35,25 +37,27 @@ beforeEach(() => {
                 id: '0',
                 todoListId: '2',
                 title: 'HTML/CSS',
-                status: TaskStatuses.New,
+                status: TASK_STATUS.New,
                 startDate: '',
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low,
-                description: ''
+                priority: TASK_PRIORITIES.Low,
+                description: '',
+                entityStatus: 'succeeded'
             },
             {
                 id: '1',
                 todoListId: '2',
                 title: 'HTML/CSS',
-                status: TaskStatuses.New,
+                status: TASK_STATUS.New,
                 startDate: '',
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low,
-                description: ''
+                priority: TASK_PRIORITIES.Low,
+                description: '',
+                entityStatus: 'succeeded'
             }
         ],
         [toDoListID_2]: [
@@ -61,13 +65,14 @@ beforeEach(() => {
                 id: '0',
                 todoListId: '3',
                 title: 'HTML/CSS',
-                status: TaskStatuses.New,
+                status: TASK_STATUS.New,
                 startDate: '',
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low,
-                description: ''
+                priority: TASK_PRIORITIES.Low,
+                description: '',
+                entityStatus: 'succeeded'
             }
         ],
     }

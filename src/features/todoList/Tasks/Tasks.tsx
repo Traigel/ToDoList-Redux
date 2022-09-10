@@ -4,18 +4,17 @@ import {TaskTitle} from "../../../components/TaskTitle/TaskTitle";
 import IconButton from '@mui/material/IconButton/IconButton';
 import {Delete} from "@mui/icons-material";
 import {Checkbox} from "@mui/material";
-import {deleteTaskTC, updateTaskTC} from '../../../reducers/tasks-reducer';
+import {deleteTaskTC, TasksDomainType, updateTaskTC} from '../../../reducers/tasks-reducer';
 import {useDispatch} from "react-redux";
-import {TaskStatuses, TasksType} from "../../../api/api";
-import {AppDispatch} from "../../../redux/store";
+import {TASK_STATUS, TasksType} from "../../../api/api";
+import {AppDispatch, useAppSelector} from "../../../redux/store";
 
 type BodyListType = {
-    tasks: TasksType
+    tasks: TasksDomainType
     todoListID: string
 }
 
 export const Tasks = memo((props: BodyListType) => {
-    console.log('Tasks')
 
     const dispatch = useDispatch<AppDispatch>()
 
@@ -25,7 +24,7 @@ export const Tasks = memo((props: BodyListType) => {
 
     const isDoneTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let newIsDoneValue = e.currentTarget.checked;
-        const status = newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New
+        const status = newIsDoneValue ? TASK_STATUS.Completed : TASK_STATUS.New
         dispatch(updateTaskTC(props.todoListID, props.tasks.id, {status}))
     }
 
@@ -37,15 +36,20 @@ export const Tasks = memo((props: BodyListType) => {
         <div>
             <div className={styles.items}>
                 <Checkbox
-                    checked={props.tasks.status === TaskStatuses.Completed}
+                    checked={props.tasks.status === TASK_STATUS.Completed}
                     onChange={isDoneTitleHandler}
+                    disabled={props.tasks.entityStatus === 'loading'}
                 />
                 <TaskTitle
                     title={props.tasks.title}
                     titleValueCallBack={taskNewTitleHandler}
-                    className={props.tasks.status === TaskStatuses.Completed ? styles.isDone : ''}
+                    className={props.tasks.status === TASK_STATUS.Completed ? styles.isDone : ''}
+                    disabled={props.tasks.entityStatus === 'loading'}
                 />
-                <IconButton aria-label="delete">
+                <IconButton
+                    aria-label="delete"
+                    disabled={props.tasks.entityStatus === 'loading'}
+                >
                     <Delete onClick={deleteTitleHandler}/>
                 </IconButton>
             </div>

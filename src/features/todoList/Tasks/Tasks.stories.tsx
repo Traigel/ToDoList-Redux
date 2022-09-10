@@ -2,9 +2,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import React from 'react';
 import {Tasks} from "./Tasks";
 import {StoreProviderDecorator} from "../../../redux/StoreProviderDecorator";
-import {TaskPriorities, TaskStatuses} from "../../../api/api";
-import {v1} from "uuid";
-
+import {TASK_PRIORITIES, TASK_STATUS} from "../../../api/api";
 
 export default {                                    //по дефолту создаётся компонент в StoryBook
     title: 'ToDoList/Tasks',                        //имя папки и в ней раздел
@@ -33,13 +31,14 @@ TaskPrimaryIsDoneFalse.args = {
         id: '1',
         todoListId: '2',
         title: 'HTML/CSS',
-        status: TaskStatuses.New,
+        status: TASK_STATUS.New,
         startDate: '',
         deadline: '',
         addedDate: '',
         order: 0,
-        priority: TaskPriorities.Low,
-        description: ''
+        priority: TASK_PRIORITIES.Low,
+        description: '',
+        entityStatus: "succeeded"
     }
 }
 
@@ -49,12 +48,13 @@ TaskPrimaryIsDoneTrue.args = {
         id: '1',
         todoListId: '2',
         title: 'JS/TS',
-        status: TaskStatuses.New,
+        status: TASK_STATUS.New,
         startDate: '',
         deadline: '',
         addedDate: '',
         order: 0,
-        priority: TaskPriorities.Low,
-        description: ''
+        priority: TASK_PRIORITIES.Low,
+        description: '',
+        entityStatus: "succeeded"
     }
 }

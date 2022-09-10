@@ -15,20 +15,20 @@ import {
     ToDoListDomainType,
     updateToDoListTC,
 } from "../../reducers/todoList-reducer";
-import {useDispatch, useSelector} from "react-redux";
-import {AppDispatch, AppRootStateType} from "../../redux/store";
+import {useDispatch} from "react-redux";
+import {AppDispatch, useAppSelector} from "../../redux/store";
 import {createTaskTC, getTasksTC,} from "../../reducers/tasks-reducer";
-import {TaskStatuses, TasksType} from "../../api/api";
+import {TASK_STATUS} from "../../api/api";
 
 type TodoListType = {
     todoList: ToDoListDomainType
 }
 
 export const ToDoList = memo((props: TodoListType) => {
-    console.log('ToDoList')
-    const {id, title, filter} = props.todoList
 
-    let tasks = useSelector<AppRootStateType, TasksType[]>(state => state.tasks[id])
+    const {id, title, filter, entityStatus} = props.todoList
+
+    let tasks = useAppSelector(state => state.tasks[id])
     const dispatch = useDispatch<AppDispatch>()
 
     const filterHandler = (filterItem: FilterType) => {
@@ -42,8 +42,8 @@ export const ToDoList = memo((props: TodoListType) => {
 
     const todoListNewTitleHandler = (newTitle: string) => dispatch(updateToDoListTC(id, newTitle))
 
-    if (filter === 'active') tasks = tasks.filter(el => el.status === TaskStatuses.New)
-    if (filter === 'completed') tasks = tasks.filter(el => el.status === TaskStatuses.Completed)
+    if (filter === 'active') tasks = tasks.filter(el => el.status === TASK_STATUS.New)
+    if (filter === 'completed') tasks = tasks.filter(el => el.status === TASK_STATUS.Completed)
 
     useEffect(() => {
         dispatch(getTasksTC(id))
@@ -52,7 +52,7 @@ export const ToDoList = memo((props: TodoListType) => {
     return <div className={style.item}>
         <h3>
             <TaskTitle title={title} titleValueCallBack={todoListNewTitleHandler}/>
-            <IconButton aria-label="delete">
+            <IconButton aria-label="delete" disabled={entityStatus === "loading"}>
                 <Delete onClick={deleteTodoListHandler}/>
             </IconButton>
         </h3>
@@ -60,6 +60,8 @@ export const ToDoList = memo((props: TodoListType) => {
             <NewTitle
                 newTitleCallBack={newTitleHandler}
                 classNameButton={style.button}
+                valueLabel={'New task'}
+                disabled={entityStatus === "loading"}
             />
         </div>
         {tasks.length > 0 ?

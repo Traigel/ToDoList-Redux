@@ -5,7 +5,7 @@ import {
     tasksReducer, TasksTodoListType, updateTaskAC
 } from "./tasks-reducer";
 import {deleteTodoListAC} from "./todoList-reducer";
-import {TaskPriorities, TaskStatuses, TasksType} from "../api/api";
+import {TASK_PRIORITIES, TASK_STATUS, TasksType} from "../api/api";
 
 const toDoListID_1 = v1();
 const toDoListID_2 = v1();
@@ -21,25 +21,27 @@ beforeEach(() => {
                 id: '0',
                 todoListId: toDoListID_1,
                 title: 'HTML/CSS',
-                status: TaskStatuses.New,
+                status: TASK_STATUS.New,
                 startDate: '',
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low,
-                description: ''
+                priority: TASK_PRIORITIES.Low,
+                description: '',
+                entityStatus: 'succeeded'
             },
             {
                 id: '1',
                 todoListId: toDoListID_1,
                 title: 'HTML/CSS',
-                status: TaskStatuses.New,
+                status: TASK_STATUS.New,
                 startDate: '',
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low,
-                description: ''
+                priority: TASK_PRIORITIES.Low,
+                description: '',
+                entityStatus: 'succeeded'
             }
         ],
         [toDoListID_2]: [
@@ -47,13 +49,14 @@ beforeEach(() => {
                 id: '0',
                 todoListId: toDoListID_2,
                 title: 'HTML/CSS',
-                status: TaskStatuses.New,
+                status: TASK_STATUS.New,
                 startDate: '',
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low,
-                description: ''
+                priority: TASK_PRIORITIES.Low,
+                description: '',
+                entityStatus: 'succeeded'
             }
         ],
     }
@@ -61,12 +64,12 @@ beforeEach(() => {
         id: taskID_1,
         todoListId: toDoListID_1,
         title: 'Hello',
-        status: TaskStatuses.New,
+        status: TASK_STATUS.New,
         startDate: '',
         deadline: '',
         addedDate: '',
         order: 0,
-        priority: TaskPriorities.Low,
+        priority: TASK_PRIORITIES.Low,
         description: ''
     }
     updateTask = {...tasks[toDoListID_1][0], title: 'Update task'}

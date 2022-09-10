@@ -4,7 +4,8 @@ import {combineReducers, legacy_createStore} from "redux";
 import {todoListReducer} from "../reducers/todoList-reducer";
 import {tasksReducer} from "../reducers/tasks-reducer";
 import {AppRootStateType} from "./store";
-import {TaskPriorities, TaskStatuses} from "../api/api";
+import {TASK_PRIORITIES, TASK_STATUS} from "../api/api";
+import {appReducer} from "../reducers/app-reducer";
 
 
 const rootReducer = combineReducers({
@@ -13,20 +14,26 @@ const rootReducer = combineReducers({
 })
 
 const initialGlobalState = {
+    app: {
+        status: 'succeeded',
+        error: null
+    },
     todoList: [
         {
             id: '1',
             title: 'HTML/CSS',
             filter: 'all',
             addedDate: '',
-            order: 0
+            order: 0,
+            entityStatus: "idle"
         },
         {
             id: '2',
             title: 'JS/TS',
             filter: 'all',
             addedDate: '',
-            order: 0
+            order: 0,
+            entityStatus: "idle"
         },
     ],
     tasks: {
@@ -35,49 +42,53 @@ const initialGlobalState = {
                 id: '0',
                 todoListId: '2',
                 title: 'HTML/CSS',
-                status: TaskStatuses.New,
+                status: TASK_STATUS.New,
                 startDate: '',
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low,
-                description: ''
+                priority: TASK_PRIORITIES.Low,
+                description: '',
+                entityStatus: 'succeeded'
             },
             {
                 id: '1',
                 todoListId: '2',
                 title: 'HTML/CSS',
-                status: TaskStatuses.New,
+                status: TASK_STATUS.New,
                 startDate: '',
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low,
-                description: ''
+                priority: TASK_PRIORITIES.Low,
+                description: '',
+                entityStatus: 'succeeded'
             },
             {
                 id: '2',
                 todoListId: '2',
                 title: 'HTML/CSS',
-                status: TaskStatuses.New,
+                status: TASK_STATUS.New,
                 startDate: '',
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low,
-                description: ''
+                priority: TASK_PRIORITIES.Low,
+                description: '',
+                entityStatus: 'succeeded'
             },
             {
                 id: '3',
                 todoListId: '2',
                 title: 'HTML/CSS',
-                status: TaskStatuses.New,
+                status: TASK_STATUS.New,
                 startDate: '',
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low,
-                description: ''
+                priority: TASK_PRIORITIES.Low,
+                description: '',
+                entityStatus: 'succeeded'
             },
         ],
         ['todolistId2']: [
@@ -85,25 +96,27 @@ const initialGlobalState = {
                 id: '0',
                 todoListId: '3',
                 title: 'HTML/CSS',
-                status: TaskStatuses.New,
+                status: TASK_STATUS.New,
                 startDate: '',
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low,
-                description: ''
+                priority: TASK_PRIORITIES.Low,
+                description: '',
+                entityStatus: 'succeeded'
             },
             {
                 id: '1',
                 todoListId: '3',
                 title: 'HTML/CSS',
-                status: TaskStatuses.New,
+                status: TASK_STATUS.New,
                 startDate: '',
                 deadline: '',
                 addedDate: '',
                 order: 0,
-                priority: TaskPriorities.Low,
-                description: ''
+                priority: TASK_PRIORITIES.Low,
+                description: '',
+                entityStatus: 'succeeded'
             },
         ],
     }

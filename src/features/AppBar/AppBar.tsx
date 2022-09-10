@@ -6,16 +6,22 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import {NewTitle} from "../NewTitle/NewTitle";
+import {NewTitle} from "../../components/NewTitle/NewTitle";
 import style from './AppBar.module.css'
 import Container from "@mui/material/Container/Container";
-import {Grid} from "@mui/material";
+import Grid from "@mui/material/Grid";
+import {memo} from "react";
+import LinearProgress from "@mui/material/LinearProgress";
+import {useAppSelector} from "../../redux/store";
 
 type ButtonAppBarPropsType = {
     newTitleCallBack: (title: string) => void
 }
 
-export default function ButtonAppBar(props: ButtonAppBarPropsType) {
+export const AppBarComponent = memo((props: ButtonAppBarPropsType) => {
+
+    const status = useAppSelector(state => state.app.status)
+
     return (
         <Box sx={{flexGrow: 1}}>
             <AppBar position="static">
@@ -32,7 +38,7 @@ export default function ButtonAppBar(props: ButtonAppBarPropsType) {
                     <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
                         <Container fixed>
                             <Grid container spacing={2}>
-                                <Grid item>
+                                <Grid item style={{ marginTop: '5px' }}>
                                     New ToDoList
                                 </Grid>
                                 <Grid item>
@@ -49,6 +55,10 @@ export default function ButtonAppBar(props: ButtonAppBarPropsType) {
                     <Button color="inherit">Login</Button>
                 </Toolbar>
             </AppBar>
+            <div style={{ height: '5px' }}>
+                {status === 'loading' && <LinearProgress/>}
+            </div>
+
         </Box>
     );
-}
+})

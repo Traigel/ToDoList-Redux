@@ -5,6 +5,7 @@ type TaskTitlePropsType = {
     title: string
     titleValueCallBack: (newTitle: string) => void
     className?: string
+    disabled?: boolean
 }
 
 export const TaskTitle = memo((props: TaskTitlePropsType) => {
@@ -21,16 +22,27 @@ export const TaskTitle = memo((props: TaskTitlePropsType) => {
     }
 
     const offVisibilityHandler = () => {
-        const titleReplace = titleValue.replace(/^ +| +$|( ) +/g,"$1")
-        if (titleReplace !== '') {
-            props.titleValueCallBack(titleValue)
-            setVisibility(false)
-        } else setError(true)
+        if (props.disabled) {
+            return
+        } else {
+            const titleReplace = titleValue.replace(/^ +| +$|( ) +/g, "$1")
+            if (titleReplace !== '') {
+                props.titleValueCallBack(titleValue)
+                setVisibility(false)
+            } else setError(true)
+        }
+
     }
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && offVisibilityHandler()
 
-    const onVisibilityHandler = () => setVisibility(true)
+    const onVisibilityHandler = () => {
+        if (props.disabled) {
+            return
+        } else {
+            setVisibility(true)
+        }
+    }
 
     return (
         visibility

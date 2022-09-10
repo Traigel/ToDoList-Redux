@@ -21,14 +21,16 @@ beforeEach(() => {
             title: 'HTML/CSS',
             filter: 'all',
             addedDate: '',
-            order: 0
+            order: 0,
+            entityStatus: "idle"
         },
         {
             id: toDoListID_2,
             title: 'JS/TS',
             filter: 'all',
             addedDate: '',
-            order: 0
+            order: 0,
+            entityStatus: "idle"
         },
     ]
     newTodoList = {
