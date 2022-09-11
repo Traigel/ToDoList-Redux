@@ -5,7 +5,6 @@ import {todoListReducer} from "../reducers/todoList-reducer";
 import {tasksReducer} from "../reducers/tasks-reducer";
 import {AppRootStateType} from "./store";
 import {TASK_PRIORITIES, TASK_STATUS} from "../api/api";
-import {appReducer} from "../reducers/app-reducer";
 
 
 const rootReducer = combineReducers({
@@ -14,9 +13,16 @@ const rootReducer = combineReducers({
 })
 
 const initialGlobalState = {
+    auth: {
+        isLoggedIn: false,
+        id: null,
+        login: null,
+        email: null
+    },
     app: {
         status: 'succeeded',
-        error: null
+        error: null,
+        isInitialized: false
     },
     todoList: [
         {

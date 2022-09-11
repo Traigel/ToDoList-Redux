@@ -12,7 +12,9 @@ import Container from "@mui/material/Container/Container";
 import Grid from "@mui/material/Grid";
 import {memo} from "react";
 import LinearProgress from "@mui/material/LinearProgress";
-import {useAppSelector} from "../../redux/store";
+import {AppDispatch, useAppSelector} from "../../redux/store";
+import {useDispatch} from "react-redux";
+import {logoutTC} from "../../reducers/auth-reducer";
 
 type ButtonAppBarPropsType = {
     newTitleCallBack: (title: string) => void
@@ -20,7 +22,14 @@ type ButtonAppBarPropsType = {
 
 export const AppBarComponent = memo((props: ButtonAppBarPropsType) => {
 
+    const dispatch = useDispatch<AppDispatch>()
     const status = useAppSelector(state => state.app.status)
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+    const login = useAppSelector(state => state.auth.login)
+
+    const LogoutHandler = () => {
+        dispatch(logoutTC())
+    }
 
     return (
         <Box sx={{flexGrow: 1}}>
@@ -37,28 +46,34 @@ export const AppBarComponent = memo((props: ButtonAppBarPropsType) => {
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
                         <Container fixed>
-                            <Grid container spacing={2}>
-                                <Grid item style={{ marginTop: '5px' }}>
-                                    New ToDoList
+                            {isLoggedIn
+                                ? <Grid container spacing={2}>
+                                    <Grid item style={{marginTop: '5px'}}>
+                                        New ToDoList
+                                    </Grid>
+                                    <Grid item>
+                                        <NewTitle
+                                            newTitleCallBack={props.newTitleCallBack}
+                                            classNameInput={style.input}
+                                            classNameButton={style.button}
+                                            colorButton={"success"}
+                                        />
+                                    </Grid>
                                 </Grid>
-                                <Grid item>
-                                    <NewTitle
-                                        newTitleCallBack={props.newTitleCallBack}
-                                        classNameInput={style.input}
-                                        classNameButton={style.button}
-                                        colorButton={"success"}
-                                    />
+                                : <Grid container spacing={2}>
+                                    <Grid item style={{marginTop: '5px'}}>
+                                        Welcome to todo list app
+                                    </Grid>
                                 </Grid>
-                            </Grid>
+                            }
                         </Container>
                     </Typography>
-                    <Button color="inherit">Login</Button>
+                    {isLoggedIn && <Button color="inherit" onClick={LogoutHandler}>Logout</Button>}
                 </Toolbar>
             </AppBar>
-            <div style={{ height: '5px' }}>
+            <div style={{height: '5px'}}>
                 {status === 'loading' && <LinearProgress/>}
             </div>
-
         </Box>
     );
 })

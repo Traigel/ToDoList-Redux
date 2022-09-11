@@ -1,44 +1,50 @@
 import React, {useCallback, useEffect} from 'react';
 import './App.css';
-import {ToDoList} from "../features/todoList/ToDoList";
-import Container from '@mui/material/Container/Container';
-import Grid from '@mui/material/Grid';
-import Paper from "@mui/material/Paper";
-import {createToDoListTC, getTodoListTC} from "../reducers/todoList-reducer";
-import {useDispatch} from "react-redux";
-import {AppDispatch, useAppSelector} from "../redux/store";
+import {createToDoListTC} from "../reducers/todoList-reducer";
 import {AppBarComponent} from "../features/AppBar/AppBar";
 import {CustomizedSnackbars} from "../components/ErrorSnackbar/ErrorSnackbar";
+import {TodolistsList} from "../features/TodolistsList/TodolistsList";
+import {useDispatch} from "react-redux";
+import {AppDispatch, useAppSelector} from "../redux/store";
+import {Login} from "../features/Login/Login";
+import {Navigate, Route, Routes} from "react-router-dom";
+import Container from "@mui/material/Container/Container";
+import {initializeAppTC} from "../reducers/app-reducer";
+import CircularProgress from "@mui/material/CircularProgress";
+
 
 function App() {
-    const todoLists = useAppSelector(state => state.todoList)
+
     const dispatch = useDispatch<AppDispatch>()
+    const isInitialized = useAppSelector(state => state.app.isInitialized)
 
     const newTodoListHandler = useCallback((titleValue: string) => dispatch(createToDoListTC(titleValue)), [dispatch])
 
     useEffect(() => {
-        dispatch(getTodoListTC)
+        dispatch(initializeAppTC())
     }, [])
 
-    return (
+    if (!isInitialized) {
+        return <div
+            style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
+            <CircularProgress/>
+        </div>
+    }
+
+    return <>
         <div className="App">
             <AppBarComponent newTitleCallBack={newTodoListHandler}/>
             <CustomizedSnackbars/>
             <Container fixed>
-                <Grid container spacing={3} style={{paddingTop: "15px"}}>
-                    {todoLists.map(tl => {
-                        return (
-                            <Grid key={tl.id} item xs={4}>
-                                <Paper elevation={6} style={{padding: "10px"}}>
-                                    <ToDoList todoList={tl}/>
-                                </Paper>
-                            </Grid>
-                        )
-                    })}
-                </Grid>
+                <Routes>
+                    <Route path={'/'} element={<TodolistsList/>}/>
+                    <Route path={'/login'} element={<Login/>}/>
+                    <Route path={'/error404'} element={<h1>Error</h1>}/>
+                    <Route path={'*'} element={<Navigate to={'/error404'}/>}/>
+                </Routes>
             </Container>
         </div>
-    );
+    </>
 }
 
 export default App;

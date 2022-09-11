@@ -1,13 +1,13 @@
 import React, {ChangeEvent, memo} from 'react';
 import styles from './Tasks.module.css'
-import {TaskTitle} from "../../../components/TaskTitle/TaskTitle";
+import {TaskTitle} from "../../../../components/TaskTitle/TaskTitle";
 import IconButton from '@mui/material/IconButton/IconButton';
-import {Delete} from "@mui/icons-material";
+import Delete from "@mui/icons-material/Delete";
 import {Checkbox} from "@mui/material";
-import {deleteTaskTC, TasksDomainType, updateTaskTC} from '../../../reducers/tasks-reducer';
+import {deleteTaskTC, TasksDomainType, updateTaskTC} from '../../../../reducers/tasks-reducer';
 import {useDispatch} from "react-redux";
-import {TASK_STATUS, TasksType} from "../../../api/api";
-import {AppDispatch, useAppSelector} from "../../../redux/store";
+import {TASK_STATUS} from "../../../../api/api";
+import {AppDispatch} from "../../../../redux/store";
 
 type BodyListType = {
     tasks: TasksDomainType

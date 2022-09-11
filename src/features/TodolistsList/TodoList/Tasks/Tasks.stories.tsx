@@ -1,8 +1,8 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import {ComponentMeta, ComponentStory} from '@storybook/react';
 import React from 'react';
 import {Tasks} from "./Tasks";
-import {StoreProviderDecorator} from "../../../redux/StoreProviderDecorator";
-import {TASK_PRIORITIES, TASK_STATUS} from "../../../api/api";
+import {StoreProviderDecorator} from "../../../../redux/StoreProviderDecorator";
+import {TASK_PRIORITIES, TASK_STATUS} from "../../../../api/api";
 
 export default {                                    //по дефолту создаётся компонент в StoryBook
     title: 'ToDoList/Tasks',                        //имя папки и в ней раздел

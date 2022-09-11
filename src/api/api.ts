@@ -40,6 +40,18 @@ export const tasksAPI = {
     }
 }
 
+export const authAPI = {
+    login(data: LoginParamsType) {
+        return instance.post<LoginParamsType, AxiosResponse<ResponseType<{ userId: number }>>>('/auth/login', data)
+    },
+    me() {
+        return instance.get<ResponseType<MeType>>('/auth/me')
+    },
+    logout() {
+        return instance.delete<ResponseType>('/auth/login')
+    }
+}
+
 // types
 export type ResponseType<T = {}> = {
     messages: string[];
@@ -79,6 +91,19 @@ export type UpdateTaskModelType = {
     priority: TASK_PRIORITIES
     startDate: string
     deadline: string
+}
+
+export type LoginParamsType = {
+    email: string
+    password: string
+    rememberMe?: boolean
+    captcha?: string
+}
+
+export type MeType = {
+    id: number | null
+    email: string | null
+    login: string | null
 }
 
 // enum

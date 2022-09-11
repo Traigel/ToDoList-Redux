@@ -65,6 +65,9 @@ export const getTodoListTC = (dispatch: Dispatch) => {
             dispatch(getTodoListAC(res.data))
             dispatch(setAppStatusAC("succeeded"))
         })
+        .catch((error) => {
+            handleServerNetworkError(error.message, dispatch)
+        })
 }
 export const createToDoListTC = (titleValue: string) => (dispatch: Dispatch) => {
     dispatch(setAppStatusAC('loading'))
@@ -114,8 +117,9 @@ export const updateToDoListTC = (todolistId: string, title: string) => (dispatch
                 handleServerAppError(res.data, dispatch)
             }
         })
-        .catch(error => {
-            handleServerNetworkError(error.message, dispatch)
+        .catch((error: AxiosError<{ error: string }>) => {
+            const err = error.response ? error.response.data.error : error.message
+            handleServerNetworkError(err, dispatch)
         })
         .finally(()=> {
             dispatch(changesTodoStatusAC(todolistId, "succeeded"))

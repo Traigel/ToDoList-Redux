@@ -1,24 +1,24 @@
 import React, {memo, useCallback, useEffect} from "react"
 import style from './ToDoList.module.css';
 import {Tasks} from "./Tasks/Tasks";
-import {NewTitle} from "../../components/NewTitle/NewTitle";
-import {TaskTitle} from "../../components/TaskTitle/TaskTitle";
-import {Delete} from "@mui/icons-material";
+import {NewTitle} from "../../../components/NewTitle/NewTitle";
+import {TaskTitle} from "../../../components/TaskTitle/TaskTitle";
+import Delete from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton/IconButton";
 import Container from "@mui/material/Container/Container";
 import Grid from "@mui/material/Grid/Grid";
-import {Button} from "@mui/material";
+import Button from "@mui/material/Button";
 import {
     changesFilterAC,
     deleteToDoListTC,
     FilterType,
     ToDoListDomainType,
     updateToDoListTC,
-} from "../../reducers/todoList-reducer";
+} from "../../../reducers/todoList-reducer";
 import {useDispatch} from "react-redux";
-import {AppDispatch, useAppSelector} from "../../redux/store";
-import {createTaskTC, getTasksTC,} from "../../reducers/tasks-reducer";
-import {TASK_STATUS} from "../../api/api";
+import {AppDispatch, useAppSelector} from "../../../redux/store";
+import {createTaskTC, getTasksTC,} from "../../../reducers/tasks-reducer";
+import {TASK_STATUS} from "../../../api/api";
 
 type TodoListType = {
     todoList: ToDoListDomainType
@@ -29,6 +29,7 @@ export const ToDoList = memo((props: TodoListType) => {
     const {id, title, filter, entityStatus} = props.todoList
 
     let tasks = useAppSelector(state => state.tasks[id])
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const dispatch = useDispatch<AppDispatch>()
 
     const filterHandler = (filterItem: FilterType) => {
