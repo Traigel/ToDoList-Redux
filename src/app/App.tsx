@@ -11,9 +11,10 @@ import {Navigate, Route, Routes} from "react-router-dom";
 import Container from "@mui/material/Container/Container";
 import {initializeAppTC} from "../reducers/app-reducer";
 import CircularProgress from "@mui/material/CircularProgress";
+import {Error404} from "../components/Error404/Error404";
 
 
-function App() {
+export const App = () => {
 
     const dispatch = useDispatch<AppDispatch>()
     const isInitialized = useAppSelector(state => state.app.isInitialized)
@@ -33,18 +34,16 @@ function App() {
 
     return <>
         <div className="App">
-            <AppBarComponent newTitleCallBack={newTodoListHandler}/>
-            <CustomizedSnackbars/>
             <Container fixed>
+                <AppBarComponent newTitleCallBack={newTodoListHandler}/>
+                <CustomizedSnackbars/>
                 <Routes>
                     <Route path={'/'} element={<TodolistsList/>}/>
                     <Route path={'/login'} element={<Login/>}/>
-                    <Route path={'/error404'} element={<h1>Error</h1>}/>
+                    <Route path={'/error404'} element={<Error404/>}/>
                     <Route path={'*'} element={<Navigate to={'/error404'}/>}/>
                 </Routes>
             </Container>
         </div>
     </>
 }
-
-export default App;
