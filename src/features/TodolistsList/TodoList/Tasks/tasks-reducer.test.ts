@@ -4,8 +4,8 @@ import {
     deleteTitleTaskAC,
     tasksReducer, TasksTodoListType, updateTaskAC
 } from "./tasks-reducer";
-import {deleteTodoListAC} from "./todoList-reducer";
-import {TASK_PRIORITIES, TASK_STATUS, TasksType} from "../api/api";
+import {deleteTodoListAC} from "../../todoList-reducer";
+import {TASK_PRIORITIES, TASK_STATUS, TasksType} from "../../../../api/api";
 
 const toDoListID_1 = v1();
 const toDoListID_2 = v1();

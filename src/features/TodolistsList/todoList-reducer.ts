@@ -1,8 +1,9 @@
 import {Dispatch} from "redux";
-import {RESULT_CODES, toDoListAPI, ToDoListType} from "../api/api";
-import {RequestStatusType, setAppErrorAC, setAppStatusAC} from "./app-reducer";
-import {handleServerAppError, handleServerNetworkError} from "../components/utils/errors-utils";
+import {RESULT_CODES, toDoListAPI, ToDoListType} from "../../api/api";
+import {RequestStatusType, setAppStatusAC} from "../../app/app-reducer";
+import {handleServerAppError, handleServerNetworkError} from "../../common/utils/errors-utils";
 import {AxiosError} from 'axios';
+import {AppRootActionsType, AppThunk} from "../../app/store";
 
 const initialState: ToDoListDomainType[] = []
 
@@ -58,7 +59,7 @@ export const changesTodoStatusAC = (toDoListID: string, entityStatus: RequestSta
 }
 
 //thunks
-export const getTodoListTC = (dispatch: Dispatch) => {
+export const getTodoListTC = (dispatch: Dispatch<AppRootActionsType>) => {
     dispatch(setAppStatusAC('loading'))
     toDoListAPI.getToDoList()
         .then(res => {
@@ -69,7 +70,7 @@ export const getTodoListTC = (dispatch: Dispatch) => {
             handleServerNetworkError(error.message, dispatch)
         })
 }
-export const createToDoListTC = (titleValue: string) => (dispatch: Dispatch) => {
+export const createToDoListTC = (titleValue: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     toDoListAPI.createToDoList(titleValue)
         .then(res => {
@@ -85,7 +86,7 @@ export const createToDoListTC = (titleValue: string) => (dispatch: Dispatch) => 
             handleServerNetworkError(err, dispatch)
         })
 }
-export const deleteToDoListTC = (todolistId: string) => (dispatch: Dispatch) => {
+export const deleteToDoListTC = (todolistId: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     dispatch(changesTodoStatusAC(todolistId, "loading"))
     toDoListAPI.deleteToDoList(todolistId)
@@ -101,12 +102,12 @@ export const deleteToDoListTC = (todolistId: string) => (dispatch: Dispatch) => 
             const err = error.response ? error.response.data.error : error.message
             handleServerNetworkError(err, dispatch)
         })
-        .finally(()=> {
+        .finally(() => {
             dispatch(changesTodoStatusAC(todolistId, "succeeded"))
         })
 
 }
-export const updateToDoListTC = (todolistId: string, title: string) => (dispatch: Dispatch) => {
+export const updateToDoListTC = (todolistId: string, title: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     toDoListAPI.updateToDoLists(todolistId, title)
         .then(res => {
@@ -121,7 +122,7 @@ export const updateToDoListTC = (todolistId: string, title: string) => (dispatch
             const err = error.response ? error.response.data.error : error.message
             handleServerNetworkError(err, dispatch)
         })
-        .finally(()=> {
+        .finally(() => {
             dispatch(changesTodoStatusAC(todolistId, "succeeded"))
         })
 }
