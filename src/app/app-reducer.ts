@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
 import {authAPI, RESULT_CODES} from "../api/api";
-import {handleServerAppError, handleServerNetworkError} from "../common/utils/errors-utils";
+import {handleServerNetworkError} from "../common/utils/errors-utils";
 import {setIsLoggedInAC, setUserInfoAC} from "../features/Login/auth-reducer";
 import axios from 'axios';
 
